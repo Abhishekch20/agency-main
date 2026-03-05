@@ -1,0 +1,26 @@
+/* Syntrix Technologies - Global Styles */
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Focus-visible for accessibility */
+*:focus-visible {
+  outline: 2px solid #635BFF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

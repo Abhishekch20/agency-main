@@ -1,0 +1,166 @@
+{
+  "project_name": "Syntrix Technologies",
+  "design_philosophy": {
+    "identity": "E1 - Anti-AI Designer",
+    "core_principles": [
+      "Fusion over Imitation: Stripe aesthetic mixed with Agency storytelling",
+      "Emotion First: Trust, Innovation, and Fluidity",
+      "Content is King: Every section drives the narrative of digital transformation",
+      "Micro-Interactions: Everything must feel alive"
+    ],
+    "anti_patterns": [
+      "Generic center alignment (except where specified)",
+      "Flat, lifeless backgrounds",
+      "Default browser scrolling",
+      "Static timelines"
+    ]
+  },
+  "theme": {
+    "mode": "light",
+    "background": "#FFFFFF",
+    "primary_text": "#0f172a",
+    "secondary_text": "#475569"
+  },
+  "typography": {
+    "font_family": {
+      "sans": ["Inter", "sans-serif"],
+      "heading": ["Inter", "sans-serif"],
+      "body": ["Inter", "sans-serif"]
+    },
+    "styles": {
+      "h1": "text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-slate-900",
+      "h2": "text-3xl md:text-5xl font-bold tracking-tight text-slate-900",
+      "h3": "text-xl md:text-2xl font-semibold tracking-tight text-slate-900",
+      "body": "text-base md:text-lg text-slate-600 leading-relaxed font-normal",
+      "button": "font-medium tracking-wide"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": "#635BFF",
+      "secondary": "#0A2540",
+      "accent_purple": "#635BFF",
+      "accent_pink": "#EC4899",
+      "accent_orange": "#F97316",
+      "accent_yellow": "#EAB308",
+      "slate_900": "#0f172a",
+      "slate_600": "#475569",
+      "slate_50": "#f8fafc"
+    },
+    "gradients": {
+      "stripe_hero": "background: radial-gradient(circle at 100% 0%, #EAB308 0%, #F97316 20%, #EC4899 40%, #635BFF 60%, transparent 80%); opacity: 0.9;",
+      "text_gradient": "bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600"
+    }
+  },
+  "layout_grid": {
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "spacing": {
+      "section_gap": "py-24 md:py-32",
+      "element_gap": "gap-8"
+    }
+  },
+  "components": {
+    "navbar": {
+      "style": "sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-100/50 transition-all duration-300",
+      "structure": [
+        "Logo (Left): Syntrix (Bold slate-900)",
+        "Nav Links (Center): Products, Solutions, Developers, Resources, Pricing",
+        "Actions (Right): Sign in (Ghost), Contact Sales (Primary Pill)"
+      ]
+    },
+    "buttons": {
+      "primary": "bg-[#635BFF] hover:bg-[#5851DF] text-white rounded-full px-6 py-2.5 transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-0.5",
+      "secondary": "bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-full px-6 py-2.5 transition-all",
+      "ghost": "text-slate-600 hover:text-[#635BFF] font-medium transition-colors"
+    },
+    "cards": {
+      "default": "bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 hover:-translate-y-1 group"
+    }
+  },
+  "sections": {
+    "hero": {
+      "layout": "grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[90vh] relative overflow-hidden",
+      "content": {
+        "alignment": "text-left",
+        "headline": "Transform Your Vision Into Digital Reality",
+        "description": "Financial infrastructure to grow your revenue. Accept payments, offer financial services and implement custom revenue models.",
+        "cta": "Request an invite >"
+      },
+      "visual": {
+        "type": "gradient_mesh",
+        "style": "Absolute positioned div on right side (w-[150%] h-[150%] -top-1/4 -right-1/4) with the 'stripe_hero' gradient rotated -12deg. Add blur-3xl."
+      }
+    },
+    "partners": {
+      "style": "py-16 bg-slate-50 border-y border-slate-100",
+      "content": "Row of minimalist logos with opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+    },
+    "creative_process": {
+      "style": "Vertical timeline with 4 steps. Step number (01, 02...) large and faded. Alternate left/right alignment on desktop.",
+      "steps": ["Strategy & Research", "Design & Innovation", "Build & Deploy", "Launch & Optimize"]
+    },
+    "impact_stats": {
+      "style": "Grid-cols-3. Large number (text-5xl font-bold text-[#635BFF]) + Label (text-sm uppercase tracking-widest text-slate-500)",
+      "data": [
+        {"value": "250+", "label": "Projects Delivered"},
+        {"value": "98%", "label": "Client Satisfaction"},
+        {"value": "180", "label": "Team Members"}
+      ]
+    },
+    "testimonials": {
+      "component": "Shadcn Carousel",
+      "style": "Cards with large quote marks. Client photo (circle), Name (Bold), Title (Slate-500)."
+    },
+    "services_timeline": {
+      "id": "services-timeline",
+      "instructions": "CRITICAL: Implement a scroll-linked vertical progress bar. A gray line (h-full w-1) runs down the center. A colored line (bg-[#635BFF]) overlays it, height controlled by scroll using framer-motion useScroll. Service items trigger animation when they come into view.",
+      "items": [
+        "Strategic Consulting", "Creative Design", "Full-Stack Development", 
+        "Growth Optimization", "App Development", "Cloud Services"
+      ]
+    },
+    "contact_form": {
+      "style": "Simple, clean form. Floating labels or crisp inputs with focus:ring-[#635BFF]. Located above footer."
+    }
+  },
+  "image_urls": {
+    "partners": [
+      "https://images.unsplash.com/photo-1632249266245-01221aa20f62?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwdGVjaCUyMGNvbXBhbnklMjBsb2dvJTIwd2hpdGUlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3MjYyNzkyOXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1632249309348-3b528c450fcd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwdGVjaCUyMGNvbXBhbnklMjBsb2dvJTIwd2hpdGUlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3MjYyNzkyOXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1559051668-e1fa58f25786?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwdGVjaCUyMGNvbXBhbnklMjBsb2dvJTIwd2hpdGUlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3MjYyNzkyOXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwdGVjaCUyMGNvbXBhbnklMjBsb2dvJTIwd2hpdGUlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3MjYyNzkyOXww&ixlib=rb-4.1.0&q=85"
+    ],
+    "team_impact": [
+      "https://images.unsplash.com/photo-1702468005178-d03074b08398?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwzfHx0ZWNoJTIwc3RhcnR1cCUyMHRlYW0lMjBwcm9mZXNzaW9uYWwlMjBkaXZlcnNlfGVufDB8fHx8MTc3MjYyNzkyOHww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1568658173325-c7b8a11d5666?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHw0fHx0ZWNoJTIwc3RhcnR1cCUyMHRlYW0lMjBwcm9mZXNzaW9uYWwlMjBkaXZlcnNlfGVufDB8fHx8MTc3MjYyNzkyOHww&ixlib=rb-4.1.0&q=85"
+    ],
+    "office_process": [
+      "https://images.unsplash.com/photo-1603201667141-5a2d4c673378?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwyfHxvZmZpY2UlMjBtZWV0aW5nJTIwY3JlYXRpdmUlMjBhZ2VuY3l8ZW58MHx8fHwxNzcyNjI3OTMwfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1603202662852-aaa285a8ed76?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwzfHxvZmZpY2UlMjBtZWV0aW5nJTIwY3JlYXRpdmUlMjBhZ2VuY3l8ZW58MHx8fHwxNzcyNjI3OTMwfDA&ixlib=rb-4.1.0&q=85"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "1. Setup: Ensure Tailwind config includes the 'stripe_hero' gradient colors in 'extend'.",
+    "2. Navbar: Implement sticky navbar with backdrop-blur. Use <nav> tag. Ensure mobile menu is implemented (hamburger).",
+    "3. Hero: Do NOT use an image on the right. Use a DIV with the radial-gradient and blur effects to create the 'wave'. Text on left.",
+    "4. Services Timeline: Use 'framer-motion'. Create a ref for the container. Use useScroll({ target: ref }). Map the scrollYProgress to the height of the colored line.",
+    "5. Forms: Use Shadcn Form, Input, Textarea, Button. Validate using Zod.",
+    "6. Footer: Simple 4-column layout. Brand left, links right.",
+    "7. Universal: Add 'data-testid' to all interactive elements."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic outputs. Avoid this.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; }.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠 etc for icons.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN.",
+    "Use sonner for toasts."
+  ]
+}
