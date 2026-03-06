@@ -1,10 +1,33 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const logos = [
   'Stripe', 'Shopify', 'Notion', 'Figma', 'Vercel', 'Slack',
 ];
 
+const aboutText =
+  "We're UI/UX designers focused on creating user-centered digital products that are functional, accessible, and visually engaging. From mobile apps to complex dashboards, we turn ideas into intuitive, enjoyable experiences.";
+const words = aboutText.split(' ');
+
+function RevealWord({ children, progress, range }) {
+  const opacity = useTransform(progress, range, [0.15, 1]);
+  return (
+    <span className="relative inline-block mr-[0.2em] mb-[0.1em]">
+      <span className="absolute left-0 top-0 text-white/10 select-none">{children}</span>
+      <motion.span style={{ opacity }} className="relative text-white">
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
 export default function Mission() {
+  const textContainerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: textContainerRef,
+    offset: ['start 0.85', 'end 0.25'],
+  });
+
   return (
     <section id="about" data-testid="mission-section" className="bg-[#0a0a0a] py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -26,13 +49,22 @@ export default function Mission() {
 
           {/* Big text */}
           <motion.p
+            ref={textContainerRef}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-2xl sm:text-3xl md:text-[2.6rem] font-black text-white uppercase leading-[1.15] tracking-tight"
           >
-            We're UI/UX designers focused on creating user-centered digital products that are functional, accessible, and visually engaging. From mobile apps to complex dashboards, we turn ideas into intuitive, enjoyable experiences.
+            {words.map((word, index) => {
+              const start = index / words.length;
+              const end = (index + 1) / words.length;
+              return (
+                <RevealWord key={`${word}-${index}`} progress={scrollYProgress} range={[start, end]}>
+                  {word}
+                </RevealWord>
+              );
+            })}
           </motion.p>
         </div>
 

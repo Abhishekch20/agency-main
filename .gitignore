@@ -82,3 +82,5 @@ android-sdk/ -e
 *.env
 *.env.*
 archive.zip
+
+.vercel
