@@ -37,9 +37,9 @@ export default function CreativeProcess() {
   const card1Opacity = useTransform(scrollYProgress, [0.06, 0.24], [0.35, 1]);
   const card1Scale = useTransform(scrollYProgress, [0.06, 0.26], [0.96, 1]);
 
-  const card2Y = useTransform(scrollYProgress, [0.2, 0.42], [42, 0]);
-  const card2Opacity = useTransform(scrollYProgress, [0.2, 0.4], [0.25, 1]);
-  const card2Scale = useTransform(scrollYProgress, [0.2, 0.42], [0.95, 1]);
+  const card2Y = useTransform(scrollYProgress, [0.06, 0.26], [36, 0]);
+  const card2Opacity = useTransform(scrollYProgress, [0.06, 0.24], [0.35, 1]);
+  const card2Scale = useTransform(scrollYProgress, [0.06, 0.26], [0.96, 1]);
 
   const card3Y = useTransform(scrollYProgress, [0.36, 0.6], [48, 0]);
   const card3Opacity = useTransform(scrollYProgress, [0.36, 0.58], [0.2, 1]);
@@ -55,7 +55,7 @@ export default function CreativeProcess() {
       className="relative overflow-hidden bg-[#0a0a0a] py-24 md:py-32"
     >
       <motion.div
-        className="pointer-events-none absolute -top-24 h-64 w-64 rounded-full blur-3xl bg-fuchsia-500/30"
+        className="pointer-events-none absolute -top-24 h-64 w-64 rounded-full blur-3xl bg-orange-500/30"
         style={{ left: accentX }}
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.09),transparent_40%)]" />
@@ -86,13 +86,13 @@ export default function CreativeProcess() {
         {/* Scroll Progress Rail */}
         <div className="relative mb-10 md:mb-12 h-[2px] bg-white/10 overflow-hidden rounded-full">
           <motion.div
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-amber-300 via-pink-400 to-indigo-400 origin-left"
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500 origin-left"
             style={{ scaleX: lineScale, opacity: lineGlow, width: '100%' }}
           />
         </div>
 
         {/* Horizontal Card Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {/* Card 01 */}
           <motion.div
             data-testid="process-step-01"
@@ -121,7 +121,7 @@ export default function CreativeProcess() {
             <span className="inline-flex items-center justify-center w-10 h-10 bg-white text-black text-sm font-bold rounded-sm mb-8">
               02
             </span>
-            <div>
+            <div className="mt-0 pb-5">
               <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight mb-3">
                 Ideate & Design
               </h3>

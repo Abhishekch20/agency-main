@@ -41,12 +41,17 @@ const services = [
   },
 ];
 
-function ServiceItem({ service, index, isOpen, onToggle }) {
+function ServiceItem({ service, index, isOpen, onHoverOpen, onToggle }) {
   return (
-    <div data-testid={`service-item-${index}`} className="border-b border-neutral-800">
+    <div
+      data-testid={`service-item-${index}`}
+      className="border-b border-neutral-800"
+      onMouseEnter={onHoverOpen}
+    >
       <button
         data-testid={`service-toggle-${index}`}
         onClick={onToggle}
+        onFocus={onHoverOpen}
         className="w-full flex items-center justify-between py-8 md:py-10 group text-left"
       >
         <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tight group-hover:text-neutral-300 transition-colors">
@@ -122,6 +127,7 @@ export default function ServicesTimeline() {
               service={service}
               index={index}
               isOpen={openIndex === index}
+              onHoverOpen={() => setOpenIndex(index)}
               onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
             />
           ))}

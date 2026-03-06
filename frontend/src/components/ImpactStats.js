@@ -1,101 +1,102 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Briefcase, ThumbsUp, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const stats = [
   {
-    value: 250,
-    suffix: '+',
-    label: 'Projects Delivered',
-    sublabel: 'Successfully completed across industries',
-    icon: Briefcase,
+    title: 'Client Satisfaction',
+    description: 'Recognized for reliable, scalable, and impactful digital work.',
+    value: '98%',
+    activeDot: 0,
   },
   {
-    value: 98,
-    suffix: '%',
-    label: 'Satisfaction Rate',
-    sublabel: 'Client satisfaction and retention rate',
-    icon: ThumbsUp,
+    title: 'Successful Projects',
+    description: 'Driven by clarity, quality, and a strong execution process.',
+    value: '25+',
+    activeDot: 1,
   },
   {
-    value: 180,
-    suffix: '',
-    label: 'Team Members',
-    sublabel: 'Talented experts worldwide',
-    icon: Users,
+    title: 'Years of Experience',
+    description: 'Built on years of refined skills and proven industry knowledge.',
+    value: '5+',
+    activeDot: 2,
   },
 ];
 
-function Counter({ target, suffix }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const duration = 2000;
-    const increment = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isInView, target]);
-
-  return (
-    <span ref={ref} className="text-5xl md:text-6xl font-bold text-[#635BFF] tabular-nums">
-      {count}
-      {suffix}
-    </span>
-  );
-}
-
 export default function ImpactStats() {
   return (
-    <section data-testid="impact-section" className="py-24 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section data-testid="impact-section" className="py-24 md:py-28 bg-[#efefed]">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.45 }}
+          className="mb-10 md:mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">
-            Our Impact
-          </h2>
-          <p className="text-base md:text-lg text-slate-500 max-w-xl mx-auto">
-            Numbers that reflect our commitment to excellence and client success
+          <p
+            className="text-xs md:text-sm uppercase tracking-[0.18em] text-neutral-500 font-semibold mb-4"
+            style={{ fontFamily: '"Manrope", sans-serif' }}
+          >
+            STATS
           </p>
+          <h2
+            className="text-[2.4rem] md:text-[4.25rem] leading-[0.95] tracking-[-0.03em] text-[#0b0b1f] font-extrabold"
+            style={{ fontFamily: '"Manrope", sans-serif' }}
+          >
+            Impact in numbers
+          </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, '-')}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="text-center p-8 rounded-2xl border border-slate-100 bg-white hover:shadow-xl hover:shadow-slate-100/50 transition-shadow duration-500 group"
-            >
-              <div className="w-14 h-14 rounded-full bg-[#635BFF]/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#635BFF]/15 transition-colors">
-                <stat.icon className="w-6 h-6 text-[#635BFF]" />
-              </div>
-              <Counter target={stat.value} suffix={stat.suffix} />
-              <p className="text-sm font-semibold uppercase tracking-widest text-slate-400 mt-3">
-                {stat.label}
-              </p>
-              <p className="text-sm text-slate-500 mt-1">{stat.sublabel}</p>
-            </motion.div>
-          ))}
+        <div className="rounded-[18px] border border-[#d4d4cf] bg-[#e8e8e6] p-4 md:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {stats.map((item, index) => (
+              <motion.article
+                key={item.title}
+                data-testid={`stat-${item.title.toLowerCase().replace(/\s/g, '-')}`}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+              >
+                <h3
+                  className="text-[2rem] leading-[1.08] text-[#0b0b1f] font-semibold mb-4"
+                  style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className="text-neutral-600 leading-[1.35] max-w-[95%]"
+                  style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}
+                >
+                  {item.description}
+                </p>
+
+                <div className="mt-auto pt-10">
+                  <div className="h-px w-full bg-[#d7d7d2] mb-6" />
+                  <div className="flex items-end justify-between">
+                    <span
+                      className="text-[#0b0b1f] font-semibold tracking-[-0.03em] leading-none"
+                      style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(2.2rem,3.4vw,4.3rem)' }}
+                    >
+                      {item.value}
+                    </span>
+                    <div className="flex items-center gap-2 pb-2">
+                      {[0, 1, 2].map((dot) => (
+                        <span
+                          key={dot}
+                          className={`w-2.5 h-2.5 rounded-full ${
+                            dot === item.activeDot
+                              ? 'bg-[#f1592a] shadow-[0_0_0_2px_rgba(241,89,42,0.16)]'
+                              : 'bg-[#d2d2cd] border border-[#c6c6c2]'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

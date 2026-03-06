@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const logos = [
   'Stripe', 'Shopify', 'Notion', 'Figma', 'Vercel', 'Slack',
@@ -26,6 +26,11 @@ export default function Mission() {
   const { scrollYProgress } = useScroll({
     target: textContainerRef,
     offset: ['start 0.85', 'end 0.25'],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    mass: 0.45,
   });
 
   return (
@@ -54,13 +59,13 @@ export default function Mission() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-[2.6rem] font-black text-white uppercase leading-[1.15] tracking-tight"
+            className="text-2xl sm:text-3xl md:text-[2.6rem] font-bold text-white uppercase leading-[1.15] tracking-tight"
           >
             {words.map((word, index) => {
               const start = index / words.length;
               const end = (index + 1) / words.length;
               return (
-                <RevealWord key={`${word}-${index}`} progress={scrollYProgress} range={[start, end]}>
+                <RevealWord key={`${word}-${index}`} progress={smoothProgress} range={[start, end]}>
                   {word}
                 </RevealWord>
               );

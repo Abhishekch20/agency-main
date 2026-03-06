@@ -89,7 +89,7 @@ export default function Footer() {
               <button
                 type="submit"
                 data-testid="newsletter-subscribe-button"
-                className="flex items-center gap-1.5 px-5 py-2.5 bg-white text-black text-sm font-medium rounded-full hover:bg-neutral-200 transition-colors shrink-0"
+                className="flex items-center gap-1.5 px-4 py-2 bg-white text-black text-xs font-medium rounded-full hover:bg-neutral-200 transition-colors shrink-0"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-black" />
                 Subscribe
