@@ -1,136 +1,175 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import {
+  HandMetal,
+  PenTool,
+  Code2,
+  LineChart,
+  Bot,
+  Search,
+  Clapperboard,
+  Smartphone,
+} from 'lucide-react';
 
 const services = [
   {
-    title: 'Strategic Consulting',
+    title: 'UI/UX Design',
     description:
-      'Our Strategic Consulting service helps you navigate the digital landscape with data-driven insights and actionable growth strategies.',
-    tags: ['Market analysis', 'Digital transformation', 'KPI definition', 'Competitive positioning'],
+      'Crafting intuitive, user-centered interfaces that blend clarity, beauty, and effortless interaction.',
+    tags: ['Web', 'Product', 'App'],
+    Icon: PenTool,
   },
   {
-    title: 'Creative Design',
+    title: 'Web Development, Website & Store Development',
     description:
-      'Our Creative Design service helps you build a distinctive, memorable, and cohesive presence that resonates with your target audience.',
-    tags: ['Logo design', 'Typography & color systems', 'Brand guidelines', 'Art Direction'],
+      'We build fast, scalable and fully responsive websites, online stores, and landing pages that perform beautifully across every device.',
+    tags: ['Business Sites', 'Shopify/Woo', 'Landing Pages', 'Web Apps', 'Maintenance'],
+    Icon: Code2,
   },
   {
-    title: 'Full-Stack Development',
+    title: 'App development',
     description:
-      'End-to-end development solutions using cutting-edge technologies to build scalable, high-performance web applications.',
-    tags: ['Custom web apps', 'E-commerce solutions', 'API integration', 'Database design'],
+      'We design and develop native and cross-platform mobile applications that are fast, reliable, and built for excellent user experience.',
+    tags: ['iOS', 'Android', 'Cross Platform', 'App UX'],
+    Icon: Smartphone,
   },
   {
-    title: 'Growth Optimization',
+    title: 'Automation & AI Solutions',
     description:
-      'Data-driven strategies to optimize your digital presence, improve conversions, and accelerate sustainable business growth.',
-    tags: ['SEO & performance', 'A/B testing', 'Analytics dashboards', 'Conversion optimization'],
+      'We automate repetitive workflows and implement AI-powered tools so your team can save time, respond faster, and scale operations efficiently.',
+    tags: ['AI Chatbots', 'Zapier/Make/n8n', 'CRM Automation', 'Auto Reports', 'Custom AI'],
+    Icon: Bot,
   },
   {
-    title: 'App Development',
+    title: 'SEO & Organic Growth',
     description:
-      'Native and cross-platform mobile applications designed for seamless user experiences across all devices and platforms.',
-    tags: ['iOS & Android', 'Cross-platform', 'App store optimization', 'Push notifications'],
+      'We improve search visibility and sustainable inbound growth with technical optimization, content strategy, and performance tracking.',
+    tags: ['On-Page SEO', 'Technical SEO', 'Keywords', 'Blog Strategy', 'Analytics'],
+    Icon: Search,
   },
   {
-    title: 'Cloud Services',
+    title: 'Creative & Media Services',
     description:
-      'Scalable cloud infrastructure and services that power modern businesses with reliability, security, and peak performance.',
-    tags: ['Cloud migration', 'DevOps & CI/CD', 'Monitoring', 'Infrastructure as code'],
+      'We produce visual assets that elevate your brand experience across digital campaigns, product showcases, and social content.',
+    tags: ['Graphic Design', 'Video Editing', 'Motion Graphics', 'Product Photos'],
+    Icon: Clapperboard,
+  },
+  {
+    title: 'Branding & Identity',
+    description:
+      'From concept to prototype, we create user-centered interfaces that balance beauty with performance, ensuring every interaction feels effortless.',
+    tags: ['Identity', 'Positioning', 'Voice'],
+    Icon: HandMetal,
+  },
+  {
+    title: 'Sales Growth Services',
+    description:
+      'We build complete sales systems to help you generate qualified leads, nurture prospects, and increase conversions across paid and owned channels.',
+    tags: ['Paid Ads', 'Lead Gen', 'Funnels', 'Email/SMS', 'CRM Automation'],
+    Icon: LineChart,
   },
 ];
 
-function ServiceItem({ service, index, isOpen, onHoverOpen, onToggle }) {
+function ServiceCard({ service, index }) {
+  const Icon = service.Icon;
+
   return (
-    <div
-      data-testid={`service-item-${index}`}
-      className="border-b border-neutral-800"
-      onMouseEnter={onHoverOpen}
+    <motion.article
+      data-testid={`service-card-${index + 1}`}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.45, delay: index * 0.08 }}
+      className="rounded-[14px] border border-[#d6d6d0] bg-[#eeeeec] p-4 md:p-6"
     >
-      <button
-        data-testid={`service-toggle-${index}`}
-        onClick={onToggle}
-        onFocus={onHoverOpen}
-        className="w-full flex items-center justify-between py-8 md:py-10 group text-left"
-      >
-        <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tight group-hover:text-neutral-300 transition-colors">
+      <div className="flex items-start justify-between gap-4">
+        <h3
+          className="text-[1.35rem] md:text-[2.65rem] leading-[1.15] text-[#080a1f] font-semibold"
+          style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.2rem,1.85vw,2rem)' }}
+        >
           {service.title}
         </h3>
-        <span className="text-neutral-400 shrink-0 ml-4 group-hover:text-white transition-colors">
-          {isOpen ? <X className="w-6 h-6 md:w-7 md:h-7" /> : <Plus className="w-6 h-6 md:w-7 md:h-7" />}
+        <span className="shrink-0 h-11 w-11 rounded-xl border border-[#ccccc6] bg-[#e8e8e6] flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+          <Icon className="h-5 w-5 text-[#1f243f]" strokeWidth={1.9} />
         </span>
-      </button>
+      </div>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="content"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="pb-8 md:pb-10">
-              <p className="text-sm md:text-base text-neutral-400 leading-relaxed max-w-xl mb-6">
-                {service.description}
-              </p>
-              <div className="flex flex-wrap gap-x-5 gap-y-2">
-                {service.tags.map((tag) => (
-                  <span key={tag} className="text-xs md:text-sm text-red-400 font-medium flex items-center gap-1.5">
-                    <Plus className="w-3 h-3" />
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      <div className="mt-5 md:mt-6 border-t border-dashed border-[#d2d2cc] pt-5 md:pt-6">
+        <p
+          className="text-[#4f556b] leading-[1.42] max-w-2xl"
+          style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1rem,1.08vw,1.12rem)' }}
+        >
+          {service.description}
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-2.5">
+          {service.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-[#d0d0cb] bg-[#e9e9e7] px-4 py-1.5 text-[11px] md:text-[12px] font-semibold uppercase tracking-[0.16em] text-[#566178]"
+              style={{ fontFamily: '"Manrope", sans-serif' }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
 export default function ServicesTimeline() {
-  const [openIndex, setOpenIndex] = useState(0);
-
   return (
     <section
       id="services"
       data-testid="services-timeline-section"
-      className="bg-[#0a0a0a] py-24 md:py-32"
+      className="bg-[#efefed] py-20 md:py-28"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-20"
-        >
-          <p className="text-sm font-medium text-neutral-400 tracking-wide mb-4 flex items-center justify-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
-            Service
-          </p>
-          <h2 className="text-sm md:text-base font-bold text-white uppercase tracking-widest leading-relaxed max-w-lg mx-auto">
-            We create powerful brands, seamless digital experiences, and responsive, device-ready websites.
-          </h2>
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-7 md:gap-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
+            className="lg:sticky lg:top-28 h-fit"
+          >
+            <p className="text-[#7b7b83] uppercase tracking-[0.2em] text-xs md:text-sm font-semibold mb-5 flex items-center gap-2">
+              <span className="text-[#b6b6bc]">&#8250;</span>
+              What we do
+              <span className="text-[#b6b6bc]">&#8249;</span>
+            </p>
 
-        {/* Accordion List */}
-        <div className="border-t border-neutral-800">
-          {services.map((service, index) => (
-            <ServiceItem
-              key={service.title}
-              service={service}
-              index={index}
-              isOpen={openIndex === index}
-              onHoverOpen={() => setOpenIndex(index)}
-              onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
-            />
-          ))}
+            <h2
+              className="text-[#080a1f] leading-[1.02] font-semibold max-w-[14ch]"
+              style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(2rem,4.4vw,4rem)' }}
+            >
+              Services built
+              <br />
+              to drive impact
+            </h2>
+
+            <div className="mt-7 md:mt-8">
+              <a
+                href="#contact"
+                data-testid="services-cta"
+                className="inline-flex items-center justify-center rounded-full border border-[#d84d1c] bg-[#ff5b1f] text-white px-5 py-2.5 md:px-6 md:py-2.5 text-[1.6rem] font-semibold shadow-[0_8px_16px_-12px_rgba(0,0,0,0.35)] hover:bg-[#ea4f1a] transition-colors"
+                style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.05rem,1.25vw,1.9rem)' }}
+              >
+                Discuss your ideas
+              </a>
+              <p className="mt-3 ml-6 text-[#f26a36] text-2xl" style={{ fontFamily: '"Caveat", cursive' }}>
+                Let&apos;s get started
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="rounded-[20px] border border-[#d2d2cc] bg-[#dfdfdc] p-2.5 md:p-4">
+            <div className="space-y-2.5 md:space-y-4">
+              {services.map((service, index) => (
+                <ServiceCard key={service.title} service={service} index={index} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

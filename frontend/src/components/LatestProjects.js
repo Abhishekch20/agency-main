@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const projects = [
   {
@@ -38,12 +38,17 @@ export default function LatestProjects() {
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 75,
+    damping: 24,
+    mass: 0.5,
+  });
 
-  // Hold each project for a beat, then move to the next one.
+  // Smooth continuous track movement for better scroll feel.
   const stackY = useTransform(
-    scrollYProgress,
-    [0, 0.14, 0.28, 0.42, 0.56, 0.7, 0.84, 1],
-    ['0vh', '0vh', '-72vh', '-72vh', '-144vh', '-144vh', '-216vh', '-216vh']
+    smoothProgress,
+    [0, 0.33, 0.66, 1],
+    ['0vh', '-72vh', '-144vh', '-216vh']
   );
 
   return (
@@ -51,24 +56,24 @@ export default function LatestProjects() {
       id="projects"
       ref={sectionRef}
       data-testid="latest-projects-section"
-      className="bg-[#0a0a0a] relative"
+      className="bg-[#efefed] relative"
       style={{ height: `${projects.length * 95}vh` }}
     >
       <div className="sticky top-0 h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-14">
-            <h2 className="text-5xl sm:text-6xl lg:text-8xl font-black text-white uppercase leading-[0.9] tracking-tighter">
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-[#0b0b1f] uppercase leading-[0.9] tracking-tighter">
               Latest<br />Projects
             </h2>
-            <p className="text-sm text-neutral-400 italic max-w-xs leading-relaxed">
+            <p className="text-sm text-[#5e6579] italic max-w-xs leading-relaxed">
               A thoughtfully curated portfolio demonstrating our commitment to simplicity and purposeful design.
             </p>
           </div>
 
           {/* Pinned Project Track */}
           <div className="h-[72vh] overflow-hidden">
-            <motion.div style={{ y: stackY }} className="space-y-4">
+            <motion.div style={{ y: stackY, willChange: 'transform' }} className="space-y-4">
               {projects.map((project, index) => (
                 <div
                   key={project.title}
