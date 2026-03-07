@@ -56,12 +56,15 @@ export default function StripeAnimation() {
               ))}
             </div>
 
-            <div className="bg-[#f7a456]">
-              <div className="px-5 md:px-6 py-4 border-b border-[#e79a50]">
-                <p className="text-[1.7rem] md:text-[2rem] font-medium text-[#0b0b1f]">Agnos agency</p>
+            <div className="relative bg-[linear-gradient(170deg,#fbb05f_0%,#f89e49_42%,#f5862f_100%)] overflow-hidden">
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.08)_55%,transparent)]" />
+              <div className="pointer-events-none absolute -top-8 -right-8 h-36 w-36 rounded-full bg-white/20 blur-2xl" />
+
+              <div className="relative px-5 md:px-6 py-4 border-b border-[#e79a50]/65">
+                <p className="text-[1.7rem] md:text-[2rem] font-medium text-[#0b0b1f]">Syntrix agency</p>
               </div>
               {rightItems.map((item) => (
-                <div key={item} className="px-5 md:px-6 py-4 border-b border-[#e79a50] last:border-b-0 flex items-center gap-3">
+                <div key={item} className="relative px-5 md:px-6 py-4 border-b border-[#e79a50]/65 last:border-b-0 flex items-center gap-3">
                   <span className="text-[#0b0b1f] text-lg">{'>'}</span>
                   <span className="text-[#0b0b1f] text-[1.28rem] md:text-[1.55rem]">{item}</span>
                 </div>

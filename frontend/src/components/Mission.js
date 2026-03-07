@@ -1,23 +1,16 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
-const techStack = [
-  'React',
-  'Next.js',
-  'TypeScript',
-  'Node.js',
-  'Express',
-  'Python',
-  'FastAPI',
-  'PostgreSQL',
-  'MongoDB',
-  'Redis',
-  'Docker',
-  'AWS',
-  'Vercel',
-  'Supabase',
-  'OpenAI',
-  'Framer Motion',
+const offeredServices = [
+  'UI/UX Design',
+  'Web Development',
+  'Website & Store Development',
+  'App Development',
+  'Automation & AI Solutions',
+  'SEO & Organic Growth',
+  'Creative & Media Services',
+  'Branding & Identity',
+  'Sales Growth Services',
 ];
 
 const aboutText =
@@ -102,10 +95,10 @@ export default function Mission() {
             animate={{ x: ['0%', '-50%'] }}
             transition={{ duration: 24, ease: 'linear', repeat: Infinity }}
           >
-            {[...techStack, ...techStack].map((name, index) => (
+            {[...offeredServices, ...offeredServices].map((name, index) => (
               <span
                 key={`${name}-${index}`}
-                data-testid={`tech-stack-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                data-testid={`offered-service-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                 className="inline-flex items-center rounded-full border border-[#cfcfc9] bg-[#efefed] px-4 py-2 text-xs md:text-sm font-semibold text-[#444b5d] tracking-wide whitespace-nowrap"
               >
                 {name}

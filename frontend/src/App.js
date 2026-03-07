@@ -67,11 +67,11 @@ function App() {
       </div>
       <Mission />
       <CreativeProcess />
-      <ImpactStats />
       <StripeAnimation />
-      <Testimonials />
       <ServicesTimeline />
+      <ImpactStats />
       <LatestProjects />
+      <Testimonials />
       <ContactForm />
       <Footer />
       <ScrollToTopProgress />
