@@ -14,7 +14,7 @@ const offeredServices = [
 ];
 
 const aboutText =
-  "We're UI/UX designers focused on creating user-centered digital products that are functional, accessible, and visually engaging. From mobile apps to complex dashboards, we turn ideas into intuitive, enjoyable experiences.";
+  "We help businesses scale through smart digital solutions that drive growth and efficiency. From high-performing websites and online stores to sales funnels, automation, and AI tools, we design systems that attract customers, generate leads, and streamline operations. By combining marketing, technology, and creative design, we turn ideas into powerful digital experiences that deliver measurable results.";
 const words = aboutText.split(' ');
 
 function RevealWord({ children, progress, range }) {

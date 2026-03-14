@@ -55,7 +55,7 @@ export default function CreativeProcess() {
       className="relative overflow-hidden bg-[#efefed] py-24 md:py-32"
     >
       <motion.div
-        className="pointer-events-none absolute -top-24 h-64 w-64 rounded-full blur-3xl bg-orange-500/30"
+        className="pointer-events-none absolute -top-24 h-64 w-64 rounded-full blur-3xl bg-[#F97316]/30"
         style={{ left: accentX }}
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.5),transparent_40%)]" />
@@ -83,72 +83,72 @@ export default function CreativeProcess() {
           </motion.p>
         </div>
 
-        {/* Scroll Progress Rail */}
-        <div className="relative mb-10 md:mb-12 h-[2px] bg-[#cfcfc9] overflow-hidden rounded-full">
-          <motion.div
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500 origin-left"
-            style={{ scaleX: lineScale, opacity: lineGlow, width: '100%' }}
-          />
-        </div>
+        <div className="rounded-[18px] border border-[#d4d4cf] bg-[#e8e8e6] p-4 md:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
+          <div className="relative mb-8 h-[2px] overflow-hidden rounded-full bg-[#d7d7d2]">
+            <motion.div
+              className="absolute inset-y-0 left-0 origin-left bg-gradient-to-r from-[#FDBA74] via-[#FB923C] to-[#F97316]"
+              style={{ scaleX: lineScale, opacity: lineGlow, width: '100%' }}
+            />
+          </div>
 
-        {/* Horizontal Card Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-          {/* Card 01 */}
-          <motion.div
-            data-testid="process-step-01"
-            style={{ y: card1Y, opacity: card1Opacity, scale: card1Scale }}
-            className="md:col-start-1 md:row-start-1 border border-[#cecec8] rounded-lg p-8 md:p-10 flex flex-col justify-between min-h-[280px] bg-[#efefed]"
-          >
-            <span className="inline-flex items-center justify-center w-10 h-10 bg-white text-black text-sm font-bold rounded-sm mb-8">
-              01
-            </span>
-            <div>
-              <h3 className="text-xl md:text-2xl font-black text-[#0b0b1f] uppercase tracking-tight mb-3">
-                Research & Define
-              </h3>
-              <p className="text-sm md:text-base text-[#5c6275] leading-relaxed">
-                {steps[0].description}
-              </p>
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+            <motion.article
+              data-testid="process-step-01"
+              style={{ y: card1Y, opacity: card1Opacity, scale: card1Scale }}
+              className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-sm font-bold text-[#0b0b1f]">
+                01
+              </span>
+              <div className="mt-auto pt-10">
+                <div className="mb-6 h-px w-full bg-[#d7d7d2]" />
+                <h3 className="mb-4 text-[2rem] leading-[1.08] font-semibold text-[#0b0b1f]" style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}>
+                  {steps[0].title}
+                </h3>
+                <p className="max-w-[95%] text-neutral-600 leading-[1.35]" style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}>
+                  {steps[0].description}
+                </p>
+              </div>
+            </motion.article>
 
-          {/* Card 02 */}
-          <motion.div
-            data-testid="process-step-02"
-            style={{ y: card2Y, opacity: card2Opacity, scale: card2Scale }}
-            className="md:col-start-2 md:row-start-1 border border-[#cecec8] rounded-lg p-8 md:p-10 flex flex-col justify-between min-h-[280px] bg-[#efefed]"
-          >
-            <span className="inline-flex items-center justify-center w-10 h-10 bg-white text-black text-sm font-bold rounded-sm mb-8">
-              02
-            </span>
-            <div className="mt-0 pb-5">
-              <h3 className="text-xl md:text-2xl font-black text-[#0b0b1f] uppercase tracking-tight mb-3">
-                Ideate & Design
-              </h3>
-              <p className="text-sm md:text-base text-[#5c6275] leading-relaxed">
-                {steps[1].description}
-              </p>
-            </div>
-          </motion.div>
+            <motion.article
+              data-testid="process-step-02"
+              style={{ y: card2Y, opacity: card2Opacity, scale: card2Scale }}
+              className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-sm font-bold text-[#0b0b1f]">
+                02
+              </span>
+              <div className="mt-auto pt-10">
+                <div className="mb-6 h-px w-full bg-[#d7d7d2]" />
+                <h3 className="mb-4 text-[2rem] leading-[1.08] font-semibold text-[#0b0b1f]" style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}>
+                  {steps[1].title}
+                </h3>
+                <p className="max-w-[95%] text-neutral-600 leading-[1.35]" style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}>
+                  {steps[1].description}
+                </p>
+              </div>
+            </motion.article>
 
-          {/* Card 03 */}
-          <motion.div
-            data-testid="process-step-03"
-            style={{ y: card3Y, opacity: card3Opacity, scale: card3Scale }}
-            className="md:col-start-3 md:row-start-1 border border-[#cecec8] rounded-lg p-8 md:p-10 flex flex-col justify-between min-h-[280px] bg-[#efefed]"
-          >
-            <span className="inline-flex items-center justify-center w-10 h-10 bg-white text-black text-sm font-bold rounded-sm mb-8">
-              03
-            </span>
-            <div>
-              <h3 className="text-xl md:text-2xl font-black text-[#0b0b1f] uppercase tracking-tight mb-3">
-                Test & Implement
-              </h3>
-              <p className="text-sm md:text-base text-[#5c6275] leading-relaxed">
-                {steps[2].description}
-              </p>
-            </div>
-          </motion.div>
+            <motion.article
+              data-testid="process-step-03"
+              style={{ y: card3Y, opacity: card3Opacity, scale: card3Scale }}
+              className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-sm font-bold text-[#0b0b1f]">
+                03
+              </span>
+              <div className="mt-auto pt-10">
+                <div className="mb-6 h-px w-full bg-[#d7d7d2]" />
+                <h3 className="mb-4 text-[2rem] leading-[1.08] font-semibold text-[#0b0b1f]" style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}>
+                  {steps[2].title}
+                </h3>
+                <p className="max-w-[95%] text-neutral-600 leading-[1.35]" style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}>
+                  {steps[2].description}
+                </p>
+              </div>
+            </motion.article>
+          </div>
         </div>
       </div>
     </section>

@@ -54,7 +54,7 @@ export const Component = ({ className = "" }) => {
       </motion.div>
 
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute right-[-20%] top-[-20%] w-[40%] h-[40%] rounded-full bg-orange-500/40 dark:bg-orange-600/20 blur-[120px]" />
+        <div className="absolute right-[-20%] top-[-20%] w-[40%] h-[40%] rounded-full bg-[#F97316]/40 dark:bg-[#F97316]/20 blur-[120px]" />
         <div className="absolute right-[10%] top-[-10%] w-[20%] h-[20%] rounded-full bg-primary/30 blur-[100px]" />
         <div className="absolute left-[-10%] bottom-[-20%] w-[40%] h-[40%] rounded-full bg-blue-500/40 dark:bg-blue-600/20 blur-[120px]" />
       </div>
@@ -71,7 +71,7 @@ export const Component = ({ className = "" }) => {
           >
             We design brands
             <br />
-            that move <span className="text-[#f1592a]">people</span>
+            that move <span className="text-[#F97316]">people</span>
           </h1>
 
           <p
@@ -85,7 +85,7 @@ export const Component = ({ className = "" }) => {
         <div className="mt-8 flex flex-wrap gap-4 pointer-events-auto">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3 text-[16px] font-semibold text-white bg-[#f1592a] rounded-full shadow-[0_10px_24px_-12px_rgba(241,89,42,0.75)] hover:bg-[#df4c1f] hover:-translate-y-0.5 transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3 text-[16px] font-semibold text-white bg-[#F97316] rounded-full shadow-[0_10px_24px_-12px_rgba(249,115,22,0.75)] hover:bg-[#EA580C] hover:-translate-y-0.5 transition-all"
             style={{ fontFamily: '"Manrope", sans-serif' }}
           >
             Discuss your ideas
@@ -100,7 +100,7 @@ export const Component = ({ className = "" }) => {
         </div>
 
         <p
-          className="mt-4 text-[#d67856] text-2xl md:text-[2.25rem] md:pl-1"
+          className="mt-4 text-[#D67856] text-2xl md:text-[2.25rem] md:pl-1"
           style={{ fontFamily: '"Caveat", cursive' }}
         >
           Schedule a free call now

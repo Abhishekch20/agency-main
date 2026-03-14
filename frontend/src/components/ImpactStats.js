@@ -86,7 +86,7 @@ export default function ImpactStats() {
                           key={dot}
                           className={`w-2.5 h-2.5 rounded-full ${
                             dot === item.activeDot
-                              ? 'bg-[#f1592a] shadow-[0_0_0_2px_rgba(241,89,42,0.16)]'
+                              ? 'bg-[#F97316] shadow-[0_0_0_2px_rgba(249,115,22,0.18)]'
                               : 'bg-[#d2d2cd] border border-[#c6c6c2]'
                           }`}
                         />

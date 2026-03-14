@@ -16,13 +16,7 @@ export default function Navbar() {
   const lastScrollY = useRef(0);
   const primaryLinks = navLinks.filter((link) => link.label !== 'Contact');
   const contactLink = navLinks.find((link) => link.label === 'Contact');
-  const updateHoverGradient = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    e.currentTarget.style.setProperty('--mx', `${x}px`);
-    e.currentTarget.style.setProperty('--my', `${y}px`);
-  };
+  const gradientAccent = 'linear-gradient(135deg,#7c4dff,#F97316)';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,41 +53,25 @@ export default function Navbar() {
 
             <div className="hidden md:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
               {primaryLinks.map((link, index) => {
-                const showDot = hoveredIndex === null ? link.label === 'Home' : hoveredIndex === index;
+                const showUnderline = hoveredIndex === null ? link.label === 'Home' : hoveredIndex === index;
                 return (
                   <a
                     key={link.label}
                     href={link.href}
                     data-testid={`nav-link-${link.label.toLowerCase()}`}
-                    className="relative flex items-center gap-1.5 px-4 py-2 text-[15px] text-neutral-700 font-semibold rounded-lg transition-all duration-300 bg-transparent hover:text-[#19101f] hover:shadow-[0_8px_16px_-12px_rgba(241,89,42,0.55)]"
+                    className="relative flex items-center gap-1.5 px-4 py-2 text-[15px] text-neutral-700 font-semibold rounded-lg transition-all duration-300 bg-transparent hover:text-[#19101f] hover:shadow-[0_8px_16px_-12px_rgba(249,115,22,0.55)]"
                     style={{ fontFamily: '"Manrope", sans-serif' }}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
-                    onMouseMove={updateHoverGradient}
-                    onFocus={updateHoverGradient}
                   >
-                    <span
-                      className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300"
-                      style={{
-                        opacity: hoveredIndex === index ? 1 : 0,
-                        backgroundImage:
-                          'radial-gradient(120px circle at var(--mx, 50%) var(--my, 50%), rgba(241,89,42,0.32), rgba(241,89,42,0.12) 45%, rgba(255,176,120,0.08) 65%, transparent 80%)',
-                      }}
-                    />
-                    <span
-                      className="transition-all duration-300 ease-out relative z-[1]"
-                      style={{
-                        opacity: showDot ? 1 : 0,
-                        transform: showDot ? 'scale(1)' : 'scale(0)',
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg,#7c4dff,#f1592a)',
-                        display: 'inline-block',
-                        flexShrink: 0,
-                      }}
-                    />
                     <span className="relative z-[1]">{link.label}</span>
+                    <span
+                      className="absolute bottom-[7px] left-4 right-4 h-[2px] origin-left rounded-full transition-transform duration-300 ease-out"
+                      style={{
+                        transform: showUnderline ? 'scaleX(1)' : 'scaleX(0)',
+                        backgroundImage: gradientAccent,
+                      }}
+                    />
                   </a>
                 );
               })}

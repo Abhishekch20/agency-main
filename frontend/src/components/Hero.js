@@ -70,8 +70,8 @@ export default function Hero() {
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,255,255,0.72),rgba(239,239,237,0.9)_34%,rgba(239,239,237,1)_72%)]" />
-        <div className="absolute -top-24 -right-24 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(241,89,42,0.28)_0%,rgba(241,89,42,0.12)_38%,rgba(241,89,42,0)_72%)] blur-2xl" />
-        <div className="absolute -bottom-28 -left-24 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(241,89,42,0.24)_0%,rgba(241,89,42,0.1)_40%,rgba(241,89,42,0)_72%)] blur-2xl" />
+        <div className="absolute -top-24 -right-24 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(249,115,22,0.28)_0%,rgba(249,115,22,0.12)_38%,rgba(249,115,22,0)_72%)] blur-2xl" />
+        <div className="absolute -bottom-28 -left-24 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(249,115,22,0.24)_0%,rgba(249,115,22,0.1)_40%,rgba(249,115,22,0)_72%)] blur-2xl" />
         <div className="absolute inset-0 z-0 opacity-[0.08]">
           <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
         </div>
@@ -81,7 +81,6 @@ export default function Hero() {
         >
           <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
         </motion.div>
-
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full pt-36 md:pt-32 pb-16 md:pb-20">
@@ -114,11 +113,11 @@ export default function Hero() {
               style={{ fontFamily: '"Manrope", sans-serif' }}
             >
               We build systems that drive
-              <span className="block mt-1.5 min-h-[1.1em] text-[#f1592a]">
+              <span className="block mt-1.5 min-h-[1.1em] text-[#F97316]">
                 {typedWord}
                 <motion.span
                   aria-hidden="true"
-                  className="inline-block ml-1 h-[0.9em] w-[2px] bg-[#f1592a] align-[-0.08em]"
+                  className="inline-block ml-1 h-[0.9em] w-[2px] bg-[#F97316] align-[-0.08em]"
                   animate={{ opacity: [1, 0, 1] }}
                   transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
                 />
@@ -145,7 +144,7 @@ export default function Hero() {
               <a
                 href="#contact"
                 data-testid="hero-cta-primary"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold text-white bg-[#f1592a] rounded-full shadow-[0_10px_24px_-12px_rgba(241,89,42,0.75)] hover:bg-[#df4c1f] hover:-translate-y-0.5 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold text-white bg-[#F97316] rounded-full shadow-[0_10px_24px_-12px_rgba(249,115,22,0.75)] hover:bg-[#EA580C] hover:-translate-y-0.5 transition-all"
                 style={{ fontFamily: '"Manrope", sans-serif' }}
               >
                 Discuss your ideas
@@ -160,7 +159,7 @@ export default function Hero() {
                 View services
               </a>
             </motion.div>
-            <p className="mt-4 text-[#d67856] text-sm md:text-[1.2rem] md:pl-1" style={{ fontFamily: '"Caveat", cursive' }}>
+            <p className="mt-4 text-[#D67856] text-sm md:text-[1.2rem] md:pl-1" style={{ fontFamily: '"Caveat", cursive' }}>
               Schedule a free call now
             </p>
           </div>
@@ -172,7 +171,10 @@ export default function Hero() {
 
 const GridPattern = ({ offsetX, offsetY }) => {
   return (
-    <svg className="w-full h-full">
+    <svg
+      className="h-full w-full"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <defs>
         <motion.pattern
           id="hero-grid-pattern"

@@ -152,12 +152,12 @@ export default function ServicesTimeline() {
               <a
                 href="#contact"
                 data-testid="services-cta"
-                className="inline-flex items-center justify-center rounded-full border border-[#d84d1c] bg-[#ff5b1f] text-white px-5 py-2.5 md:px-6 md:py-2.5 text-[1.6rem] font-semibold shadow-[0_8px_16px_-12px_rgba(0,0,0,0.35)] hover:bg-[#ea4f1a] transition-colors"
+                className="inline-flex items-center justify-center rounded-full border border-[#EA580C] bg-[#F97316] text-white px-5 py-2.5 md:px-6 md:py-2.5 text-[1.6rem] font-semibold shadow-[0_8px_16px_-12px_rgba(0,0,0,0.35)] hover:bg-[#EA580C] transition-colors"
                 style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.05rem,1.25vw,1.9rem)' }}
               >
                 Discuss your ideas
               </a>
-              <p className="mt-3 ml-6 text-[#f26a36] text-2xl" style={{ fontFamily: '"Caveat", cursive' }}>
+              <p className="mt-3 ml-6 text-[#D67856] text-2xl" style={{ fontFamily: '"Caveat", cursive' }}>
                 Let&apos;s get started
               </p>
             </div>

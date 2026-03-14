@@ -3,11 +3,12 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const projects = [
   {
-    category: 'Branding',
-    year: '//2025',
-    title: 'Vertex',
-    subtitle: 'Brand Identity & Visual System',
-    image: 'https://images.unsplash.com/photo-1648134859211-4a1b57575f4e?auto=format&fit=crop&w=1200&q=80',
+    category: 'E-Commerce',
+    year: '//2026',
+    title: 'Urban Psychotic',
+    subtitle: 'Streetwear Fashion Store & Shopify Experience',
+    image: '/urban-psychotic.png',
+    href: 'https://urbanpsychotic.com',
   },
   {
     category: 'Development',
@@ -15,6 +16,7 @@ const projects = [
     title: 'Nuvora',
     subtitle: 'E-Commerce Platform Redesign',
     image: 'https://images.unsplash.com/photo-1745357996530-f7f6b41129e0?auto=format&fit=crop&w=1200&q=80',
+    href: '#',
   },
   {
     category: 'UI/UX Design',
@@ -22,6 +24,7 @@ const projects = [
     title: 'Eclipso',
     subtitle: 'SaaS Dashboard & Analytics',
     image: 'https://images.unsplash.com/photo-1745357996554-538f89cbd64e?auto=format&fit=crop&w=1200&q=80',
+    href: '#',
   },
   {
     category: 'App Design',
@@ -29,6 +32,7 @@ const projects = [
     title: 'Lumino',
     subtitle: 'Mobile Fitness Application',
     image: 'https://images.unsplash.com/photo-1769285157133-7cd39d6649a0?auto=format&fit=crop&w=1200&q=80',
+    href: '#',
   },
 ];
 
@@ -75,10 +79,13 @@ export default function LatestProjects() {
           <div className="h-[72vh] overflow-hidden">
             <motion.div style={{ y: stackY, willChange: 'transform' }} className="space-y-4">
               {projects.map((project, index) => (
-                <div
+                <a
                   key={project.title}
                   data-testid={`project-card-${index}`}
-                  className="relative rounded-lg overflow-hidden group cursor-pointer h-[70vh]"
+                  className="relative rounded-lg overflow-hidden group cursor-pointer h-[70vh] block"
+                  href={project.href}
+                  target={project.href.startsWith('http') ? '_blank' : undefined}
+                  rel={project.href.startsWith('http') ? 'noreferrer' : undefined}
                 >
                   <img
                     src={project.image}
@@ -104,7 +111,7 @@ export default function LatestProjects() {
                       {project.subtitle}
                     </p>
                   </div>
-                </div>
+                </a>
               ))}
             </motion.div>
           </div>

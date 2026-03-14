@@ -73,7 +73,7 @@ export default function ContactForm() {
               <button
                 data-testid="send-another-message"
                 onClick={() => setIsSubmitted(false)}
-                className="inline-flex items-center px-5 py-2.5 rounded-full bg-[#f1592a] text-white text-sm font-semibold hover:bg-[#df4c1f] transition-colors"
+                className="inline-flex items-center px-5 py-2.5 rounded-full bg-[#F97316] text-white text-sm font-semibold hover:bg-[#EA580C] transition-colors"
                 style={{ fontFamily: '"Manrope", sans-serif' }}
               >
                 Send another message
@@ -230,7 +230,7 @@ export default function ContactForm() {
                       type="submit"
                       data-testid="contact-submit-button"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center min-w-[180px] px-5 py-2.5 rounded-full bg-[#ff5a1f] text-white text-[0.95rem] font-semibold hover:bg-[#ea4f1a] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center justify-center min-w-[180px] px-5 py-2.5 rounded-full bg-[#F97316] text-white text-[0.95rem] font-semibold hover:bg-[#EA580C] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
                       style={{ fontFamily: '"Manrope", sans-serif' }}
                     >
                       {isSubmitting ? 'Sending...' : 'Send a message'}
