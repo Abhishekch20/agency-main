@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useAnimationFrame, useMotionTemplate, useMotionValue, useTransform } from 'framer-motion';
+import { useEffect, useId, useRef, useState } from 'react';
+import { motion, useAnimationFrame, useMotionTemplate, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { ArrowRight, Terminal, Cpu, Globe, Smartphone, Database, Zap, Share2 } from 'lucide-react';
 
 const ROTATING_WORDS = ['WEB', 'MOBILE', 'AI/ML', 'WEB3', 'DATA', 'CLOUD', 'DEV_OPS', 'API', 'UI/UX', 'SECURITY'];
@@ -10,6 +10,7 @@ const NEXT_WORD_DELAY = 300;
 
 export default function Hero() {
   const heroRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [typedWord, setTypedWord] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -36,6 +37,12 @@ export default function Hero() {
     const currentWord = ROTATING_WORDS[activeWordIndex];
     let timeoutId;
 
+    if (prefersReducedMotion) {
+      if (typedWord !== currentWord) setTypedWord(currentWord);
+      if (isDeleting) setIsDeleting(false);
+      return;
+    }
+
     if (!isDeleting && typedWord === currentWord) {
       timeoutId = setTimeout(() => setIsDeleting(true), HOLD_DELAY);
     } else if (isDeleting && typedWord === '') {
@@ -51,9 +58,10 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timeoutId);
-  }, [typedWord, isDeleting, activeWordIndex]);
+  }, [typedWord, isDeleting, activeWordIndex, prefersReducedMotion]);
 
   useAnimationFrame(() => {
+    if (prefersReducedMotion) return;
     gridOffsetX.set((gridOffsetX.get() + 0.3) % 40);
     gridOffsetY.set((gridOffsetY.get() + 0.3) % 40);
   });
@@ -105,12 +113,16 @@ export default function Hero() {
               WE ENGINEER <br />
               <span className="block mt-2 min-h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-primary to-indigo-500" style={{ filter: 'drop-shadow(0 0 15px rgba(37,99,235,0.3))' }}>
                 {typedWord}
-                <motion.span
-                  aria-hidden="true"
-                  className="inline-block ml-2 h-[0.7em] w-[4px] bg-primary align-[-0.05em] shadow-brand-cyan-glow"
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                />
+                {prefersReducedMotion ? (
+                  <span aria-hidden="true" className="inline-block ml-2 h-[0.7em] w-[4px] bg-primary align-[-0.05em] shadow-brand-cyan-glow" />
+                ) : (
+                  <motion.span
+                    aria-hidden="true"
+                    className="inline-block ml-2 h-[0.7em] w-[4px] bg-primary align-[-0.05em] shadow-brand-cyan-glow"
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                  />
+                )}
               </span>
             </motion.h1>
 
@@ -162,7 +174,7 @@ export default function Hero() {
               }}
               className="relative w-full h-full flex items-center justify-center"
             >
-              <ServiceDiagram />
+              <ServiceDiagram prefersReducedMotion={prefersReducedMotion} />
             </motion.div>
           </div>
 
@@ -172,7 +184,7 @@ export default function Hero() {
   );
 }
 
-function ServiceDiagram() {
+function ServiceDiagram({ prefersReducedMotion = false }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -183,6 +195,7 @@ function ServiceDiagram() {
   }, []);
 
   const scaleFactor = isMobile ? 0.6 : 1;
+  const floatAmplitude = prefersReducedMotion ? 0 : 6;
 
   const nodes = [
     { icon: Globe, label: 'WEB', delay: 0, x: -200 * scaleFactor, y: -120 * scaleFactor, color: 'text-blue-500' },
@@ -201,13 +214,17 @@ function ServiceDiagram() {
     <div className="relative flex items-center justify-center w-full h-full scale-[0.85] sm:scale-100">
       {/* Central Core Engine */}
       <motion.div
-        animate={{
-          rotate: [0, 360],
-          scale: [1, 1.05, 1]
-        }}
+        animate={
+          prefersReducedMotion
+            ? undefined
+            : {
+              rotate: [0, 360],
+              scale: [1, 1.02, 1],
+            }
+        }
         transition={{
-          rotate: { duration: 60, repeat: Infinity, ease: "linear" },
-          scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+          rotate: { duration: 120, repeat: Infinity, ease: "linear" },
+          scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
         }}
         className="relative z-20 w-32 h-32 lg:w-48 lg:h-48 flex items-center justify-center scale-[0.7] lg:scale-100"
       >
@@ -223,8 +240,8 @@ function ServiceDiagram() {
 
         {/* Outer Orbiting HUD Ring */}
         <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          animate={prefersReducedMotion ? undefined : { rotate: -360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           className="absolute -inset-6 lg:-inset-10 border border-border/10 rounded-full border-dashed"
         />
       </motion.div>
@@ -251,11 +268,11 @@ function ServiceDiagram() {
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{
               pathLength: [0, 1],
-              opacity: [0, 0.4, 0],
-              strokeDashoffset: [0, -50]
+              opacity: [0, 0.25, 0],
+              strokeDashoffset: [0, -20]
             }}
             transition={{
-              duration: 3,
+              duration: 5,
               repeat: Infinity,
               delay: node.delay,
               ease: "linear"
@@ -278,11 +295,11 @@ function ServiceDiagram() {
           >
             <motion.div
               animate={{
-                y: [0, -10, 0],
-                rotate: [0, 2, 0]
+                y: [0, -floatAmplitude, 0],
+                rotate: [0, 1, 0]
               }}
               transition={{
-                duration: 4,
+                duration: 6,
                 repeat: Infinity,
                 delay: i * 0.5,
                 ease: "easeInOut"
@@ -302,35 +319,40 @@ function ServiceDiagram() {
       })}
 
       {/* Floating Particle Field */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(isMobile ? 3 : 6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/40 rounded-full"
-            animate={{
-              x: [Math.random() * (isMobile ? 300 : 400) - (isMobile ? 150 : 200), Math.random() * (isMobile ? 300 : 400) - (isMobile ? 150 : 200)],
-              y: [Math.random() * (isMobile ? 300 : 400) - (isMobile ? 150 : 200), Math.random() * (isMobile ? 300 : 400) - (isMobile ? 150 : 200)],
-              opacity: [0, 0.8, 0],
-              scale: [0, 1.5, 0]
-            }}
-            transition={{
-              duration: 5 + Math.random() * 5,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
+      {!prefersReducedMotion && (
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(isMobile ? 2 : 4)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              animate={{
+                x: [Math.random() * (isMobile ? 260 : 340) - (isMobile ? 130 : 170), Math.random() * (isMobile ? 260 : 340) - (isMobile ? 130 : 170)],
+                y: [Math.random() * (isMobile ? 260 : 340) - (isMobile ? 130 : 170), Math.random() * (isMobile ? 260 : 340) - (isMobile ? 130 : 170)],
+                opacity: [0, 0.6, 0],
+                scale: [0, 1.2, 0]
+              }}
+              transition={{
+                duration: 10 + Math.random() * 6,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 const GridPattern = ({ offsetX, offsetY, color = "currentColor", strokeWidth = 1, className = "" }) => {
+  const reactId = useId();
+  const patternId = `hero-grid-pattern-${reactId.replace(/:/g, '')}`;
+
   return (
     <svg className={`h-full w-full ${className}`} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <motion.pattern
-          id={`hero-grid-pattern-${color}`}
+          id={patternId}
           width="40"
           height="40"
           patternUnits="userSpaceOnUse"
@@ -345,7 +367,7 @@ const GridPattern = ({ offsetX, offsetY, color = "currentColor", strokeWidth = 1
           />
         </motion.pattern>
       </defs>
-      <rect width="100%" height="100%" fill={`url(#hero-grid-pattern-${color})`} />
+      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
     </svg>
   );
 };
