@@ -41,6 +41,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 dump.rdb
+*.log
+*.out.log
+*.err.log
 
 # System files
 .DS_Store
@@ -75,6 +78,11 @@ agenthub/agents/youtube/db
 
 # Build caches
 .cache/
+
+# Local generated media and temporary exports
+temp_frames/
+temp_frames_hero2/
+temp_frames_ref/
 
 # Mobile development
 android-sdk/ -e 

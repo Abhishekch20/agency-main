@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
-import axios from 'axios';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -33,11 +30,24 @@ export default function ContactForm() {
     setError('');
 
     try {
-      await axios.post(`${BACKEND_URL}/api/contact`, formData);
+      const subject = encodeURIComponent(`New project inquiry from ${formData.name}`);
+      const body = encodeURIComponent(
+        [
+          `Name: ${formData.name}`,
+          `Email: ${formData.email}`,
+          `Phone: ${formData.phone}`,
+          `Company: ${formData.company || 'Not provided'}`,
+          '',
+          'Message:',
+          formData.message,
+        ].join('\n')
+      );
+
+      window.location.href = `mailto:support@example.com?subject=${subject}&body=${body}`;
       setIsSubmitted(true);
       setFormData({ name: '', email: '', phone: '', company: '', message: '' });
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError('Unable to open your email app. Please email us directly at support@example.com.');
     } finally {
       setIsSubmitting(false);
     }
@@ -68,7 +78,7 @@ export default function ContactForm() {
                 Message sent!
               </h3>
               <p className="text-neutral-600 mb-6 text-base md:text-lg" style={{ fontFamily: '"Manrope", sans-serif' }}>
-                Thanks for reaching out. We will get back to you within 24 hours.
+                Your email app has been opened with your message ready to send.
               </p>
               <button
                 data-testid="send-another-message"
