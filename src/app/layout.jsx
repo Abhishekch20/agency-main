@@ -22,7 +22,15 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="relative min-h-screen">
+        <div className="fixed inset-0 -z-50 pointer-events-none">
+          <div className="absolute inset-0 bg-background" />
+          <div className="absolute inset-0 bg-cyber-grid bg-[length:40px_40px] opacity-[0.05] dark:opacity-[0.03] mix-blend-overlay" />
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 blur-[120px] rounded-full animate-pulse" />
+          <div className="absolute top-[30%] right-[10%] w-[30%] h-[30%] bg-accent/15 blur-[100px] rounded-full" />
+        </div>
+
         <Script id="performance-server-timing-fix" strategy="beforeInteractive">
           {`window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);`}
         </Script>

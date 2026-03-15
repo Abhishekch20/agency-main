@@ -52,41 +52,41 @@ export default function CreativeProcess() {
       id="process"
       ref={sectionRef}
       data-testid="creative-process-section"
-      className="relative overflow-hidden bg-[#efefed] py-24 md:py-32"
+      className="relative overflow-hidden bg-transparent py-24 md:py-32 font-sans"
     >
       <motion.div
-        className="pointer-events-none absolute -top-24 h-64 w-64 rounded-full blur-3xl bg-[#F97316]/30"
+        className="pointer-events-none absolute -top-24 h-64 w-64 rounded-full blur-[100px] bg-indigo-500/20"
         style={{ left: accentX }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.5),transparent_40%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(37,99,235,0.05),transparent_40%)]" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Header Row */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-20">
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6 }}
-            className="text-5xl sm:text-6xl lg:text-8xl font-black text-[#0b0b1f] uppercase leading-[0.9] tracking-tighter"
+            className="text-5xl sm:text-6xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-foreground to-muted-foreground/50 uppercase leading-[0.9] tracking-widest drop-shadow-[0_0_15px_rgba(var(--foreground),0.1)]"
           >
-            Work<br />Process
+            Execution<br />Protocol
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-base md:text-lg text-[#586075] max-w-sm leading-relaxed"
+            className="text-base md:text-lg text-muted-foreground max-w-sm leading-relaxed font-medium"
           >
-            See how our proven process transforms your brand with custom design solutions that deliver measurable impact from day one.
+            Observe the deterministic sequence we employ to transmute abstract directives into high-fidelity digital reality.
           </motion.p>
         </div>
 
-        <div className="rounded-[18px] border border-[#d4d4cf] bg-[#e8e8e6] p-4 md:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
-          <div className="relative mb-8 h-[2px] overflow-hidden rounded-full bg-[#d7d7d2]">
+        <div className="rounded-[4px] border border-border bg-card/50 backdrop-blur-md p-4 md:p-6 shadow-[inset_0_1px_0_rgba(var(--foreground),0.05),0_0_30px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_30px_rgba(0,0,0,0.5)]">
+          <div className="relative mb-8 h-[2px] overflow-hidden rounded-full bg-white/10">
             <motion.div
-              className="absolute inset-y-0 left-0 origin-left bg-gradient-to-r from-[#FDBA74] via-[#FB923C] to-[#F97316]"
+              className="absolute inset-y-0 left-0 origin-left bg-gradient-to-r from-primary via-foreground to-secondary shadow-brand-cyan-glow"
               style={{ scaleX: lineScale, opacity: lineGlow, width: '100%' }}
             />
           </div>
@@ -95,17 +95,18 @@ export default function CreativeProcess() {
             <motion.article
               data-testid="process-step-01"
               style={{ y: card1Y, opacity: card1Opacity, scale: card1Scale }}
-              className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+              className="group glass-card px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col relative overflow-hidden"
             >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-sm font-bold text-[#0b0b1f]">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-primary/20 transition-colors duration-500" />
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-primary/20 border border-primary/50 text-sm font-bold text-primary shadow-brand-cyan-glow">
                 01
               </span>
-              <div className="mt-auto pt-10">
-                <div className="mb-6 h-px w-full bg-[#d7d7d2]" />
-                <h3 className="mb-4 text-[2rem] leading-[1.08] font-semibold text-[#0b0b1f]" style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}>
+              <div className="mt-auto pt-10 relative z-10">
+                <div className="mb-6 h-px w-full bg-white/20" />
+                <h3 className="mb-4 text-[1.8rem] leading-[1.08] font-bold text-foreground uppercase tracking-wider">
                   {steps[0].title}
                 </h3>
-                <p className="max-w-[95%] text-neutral-600 leading-[1.35]" style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}>
+                <p className="max-w-[95%] text-muted-foreground leading-[1.4] font-medium">
                   {steps[0].description}
                 </p>
               </div>
@@ -114,17 +115,18 @@ export default function CreativeProcess() {
             <motion.article
               data-testid="process-step-02"
               style={{ y: card2Y, opacity: card2Opacity, scale: card2Scale }}
-              className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+              className="group glass-card px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col relative overflow-hidden"
             >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-sm font-bold text-[#0b0b1f]">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-foreground/10 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-foreground/20 transition-colors duration-500" />
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-foreground/20 border border-foreground/50 text-sm font-bold text-foreground shadow-sm">
                 02
               </span>
-              <div className="mt-auto pt-10">
-                <div className="mb-6 h-px w-full bg-[#d7d7d2]" />
-                <h3 className="mb-4 text-[2rem] leading-[1.08] font-semibold text-[#0b0b1f]" style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}>
+              <div className="mt-auto pt-10 relative z-10">
+                <div className="mb-6 h-px w-full bg-white/20" />
+                <h3 className="mb-4 text-[1.8rem] leading-[1.08] font-bold text-foreground uppercase tracking-wider">
                   {steps[1].title}
                 </h3>
-                <p className="max-w-[95%] text-neutral-600 leading-[1.35]" style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}>
+                <p className="max-w-[95%] text-muted-foreground leading-[1.4] font-medium">
                   {steps[1].description}
                 </p>
               </div>
@@ -133,17 +135,18 @@ export default function CreativeProcess() {
             <motion.article
               data-testid="process-step-03"
               style={{ y: card3Y, opacity: card3Opacity, scale: card3Scale }}
-              className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+              className="group glass-card px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col relative overflow-hidden"
             >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-sm font-bold text-[#0b0b1f]">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-secondary/20 transition-colors duration-500" />
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-secondary/20 border border-secondary/50 text-sm font-bold text-secondary shadow-brand-purple-glow">
                 03
               </span>
-              <div className="mt-auto pt-10">
-                <div className="mb-6 h-px w-full bg-[#d7d7d2]" />
-                <h3 className="mb-4 text-[2rem] leading-[1.08] font-semibold text-[#0b0b1f]" style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}>
+              <div className="mt-auto pt-10 relative z-10">
+                <div className="mb-6 h-px w-full bg-white/20" />
+                <h3 className="mb-4 text-[1.8rem] leading-[1.08] font-bold text-foreground uppercase tracking-wider">
                   {steps[2].title}
                 </h3>
-                <p className="max-w-[95%] text-neutral-600 leading-[1.35]" style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}>
+                <p className="max-w-[95%] text-muted-foreground leading-[1.4] font-medium">
                   {steps[2].description}
                 </p>
               </div>

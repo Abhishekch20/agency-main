@@ -18,53 +18,54 @@ const rightItems = [
 
 export default function StripeAnimation() {
   return (
-    <section className="py-8 md:py-10 bg-[#efefed]">
+    <section className="py-8 md:py-10 bg-transparent relative overflow-hidden">
+      <div className="absolute inset-0 bg-cyber-grid bg-[length:40px_40px] opacity-[0.03] pointer-events-none mix-blend-screen" />
       <div className="max-w-6xl mx-auto px-5 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-120px' }}
           transition={{ duration: 0.55 }}
-          className="rounded-2xl bg-[#efefed] border border-neutral-300 p-5 md:p-7"
+          className="glass-card p-5 md:p-7 relative z-10"
         >
           <div className="max-w-3xl">
-            <h3 className="text-[1.5rem] md:text-[2.35rem] leading-[1.12] font-semibold text-[#0b0b1f]">
+            <h3 className="text-[1.5rem] md:text-[2.35rem] leading-[1.12] font-semibold text-foreground">
               We know choosing the right agency is hard because few{' '}
-              <span className="text-[#F97316]">truly deliver</span>.
+              <span className="text-primary">truly deliver</span>.
             </h3>
 
-            <p className="mt-4 text-[1.5rem] md:text-[2.35rem] leading-[1.12] font-semibold text-[#0b0b1f]">
-              So we made it simple <span className="text-[#F97316]">to compare</span>{' '}
+            <p className="mt-4 text-[1.5rem] md:text-[2.35rem] leading-[1.12] font-semibold text-foreground">
+              So we made it simple <span className="text-primary">to compare</span>{' '}
               how we work{' '}
-              <span className="inline-flex w-8 h-5 rounded-full bg-[#F97316] align-middle mx-1.5">
-                <span className="w-4 h-4 bg-white rounded-full my-auto ml-0.5" />
+              <span className="inline-flex w-8 h-5 rounded-full bg-primary align-middle mx-1.5 shadow-brand-cyan-glow">
+                <span className="w-4 h-4 bg-primary-foreground rounded-full my-auto ml-0.5" />
               </span>
-              versus what you usually get <span className="text-[#F97316]">in the market.</span>
+              versus what you usually get <span className="text-primary">in the market.</span>
             </p>
           </div>
 
-          <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden border border-neutral-300">
-            <div className="bg-[#f3f3f3]">
-              <div className="px-5 md:px-6 py-4 border-b border-neutral-300">
-                <p className="text-[1.7rem] md:text-[2rem] font-medium text-[#0b0b1f]">Other agencies</p>
+          <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden border border-border">
+            <div className="bg-muted/10">
+              <div className="px-5 md:px-6 py-4 border-b border-border">
+                <p className="text-[1.7rem] md:text-[2rem] font-medium text-foreground opacity-60">Other agencies</p>
               </div>
               {leftItems.map((item) => (
-                <div key={item} className="px-5 md:px-6 py-4 border-b border-neutral-300 last:border-b-0 flex items-center gap-3">
-                  <span className="text-neutral-500 text-lg">{'>'}</span>
-                  <span className="text-neutral-600 text-[1.28rem] md:text-[1.55rem]">{item}</span>
+                <div key={item} className="px-5 md:px-6 py-4 border-b border-border last:border-b-0 flex items-center gap-3">
+                  <span className="text-muted-foreground/40 text-lg font-bold">{'>'}</span>
+                  <span className="text-muted-foreground text-[1.28rem] md:text-[1.55rem] font-medium opacity-50">{item}</span>
                 </div>
               ))}
             </div>
 
-            <div className="relative overflow-hidden bg-[linear-gradient(170deg,#FDBA74_0%,#FB923C_42%,#F97316_100%)]">
+            <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-secondary">
 
-              <div className="relative px-5 md:px-6 py-4">
-                <p className="text-[1.7rem] md:text-[2rem] font-medium text-[#0b0b0b]">Syntrix agency</p>
+              <div className="relative px-5 md:px-6 py-4 border-b border-primary-foreground/10 bg-white/5">
+                <p className="text-[1.7rem] md:text-[2rem] font-black text-primary-foreground tracking-tight uppercase">Syntrix agency</p>
               </div>
               {rightItems.map((item) => (
-                <div key={item} className="relative px-5 md:px-6 py-4 flex items-center gap-3">
-                  <span className="text-[#0b0b0b] text-lg">{'>'}</span>
-                  <span className="text-[#0b0b0b] text-[1.28rem] md:text-[1.55rem]">{item}</span>
+                <div key={item} className="relative px-5 md:px-6 py-4 flex items-center gap-3 border-b border-primary-foreground/5 last:border-b-0 group">
+                  <span className="text-primary-foreground text-lg font-bold group-hover:translate-x-1 transition-transform">{'>'}</span>
+                  <span className="text-primary-foreground font-bold text-[1.28rem] md:text-[1.55rem] tracking-tight">{item}</span>
                 </div>
               ))}
             </div>

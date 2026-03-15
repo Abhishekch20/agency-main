@@ -60,26 +60,29 @@ export default function Testimonials() {
   );
 
   return (
-    <section data-testid="testimonials-section" className="py-24 md:py-32 bg-[#efefed] overflow-hidden">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6">
+    <section data-testid="testimonials-section" className="py-24 md:py-32 bg-transparent overflow-hidden relative">
+      <div className="absolute inset-0 bg-cyber-grid bg-[length:40px_40px] opacity-[0.05] dark:opacity-[0.03] pointer-events-none mix-blend-screen" />
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none -translate-y-1/2" />
+
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12 md:mb-14"
         >
           <p
-            className="text-xs md:text-sm uppercase tracking-[0.2em] text-neutral-500 font-semibold mb-4"
+            className="text-xs md:text-sm uppercase tracking-[0.25em] text-primary font-bold mb-4 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)]"
             style={{ fontFamily: '"Manrope", sans-serif' }}
           >
-            TESTIMONIALS
+            USER LOGS
           </p>
           <h2
-            className="text-[2.2rem] md:text-[4rem] font-extrabold text-[#0b0b1f] tracking-[-0.03em] leading-[0.95]"
-            style={{ fontFamily: '"Manrope", sans-serif' }}
+            className="text-[2.2rem] md:text-[4rem] font-black text-foreground uppercase tracking-widest leading-[0.95]"
+            style={{ fontFamily: '"Manrope", sans-serif', textShadow: '0 0 20px rgba(var(--foreground),0.1)' }}
           >
-            What clients say
+            System Feedback
           </h2>
         </motion.div>
 
@@ -91,47 +94,46 @@ export default function Testimonials() {
                 <motion.article
                   key={`${item.name}-${idx}`}
                   data-testid={`testimonial-card-${idx}`}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: idx * 0.05 }}
-                  className={`rounded-[10px] border transition-all duration-300 h-full ${
-                    isActive
-                      ? 'bg-[#e9e9e7] border-[#d0d0cc] shadow-[0_10px_20px_rgba(0,0,0,0.06)]'
-                      : 'bg-[#ececea] border-[#e1e1dd] opacity-45'
-                  }`}
+                  className={`rounded-sm border transition-all duration-300 h-full ${isActive
+                    ? 'bg-primary/5 border-primary/50 shadow-brand-cyan-glow z-10 scale-105'
+                    : 'bg-background/20 border-border/50 opacity-50 backdrop-blur-sm'
+                    }`}
                 >
-                  <div className="p-3 md:p-4 h-full">
-                    <div className={`rounded-[8px] border ${isActive ? 'border-[#d6d6d1] bg-[#f3f3f1]' : 'border-[#e4e4df] bg-[#f0f0ee]'} p-6 md:p-7 min-h-[330px] md:min-h-[360px] flex flex-col h-full`}>
+                  <div className="p-1 h-full">
+                    <div className={`rounded-sm border ${isActive ? 'border-primary/30 bg-background/80 backdrop-blur-xl' : 'border-border bg-background/50'} p-6 md:p-7 min-h-[330px] md:min-h-[360px] flex flex-col h-full relative overflow-hidden`}>
+                      {isActive && <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent shadow-brand-cyan-glow" />}
                       <blockquote
-                        className={`text-3xl leading-[1.28] ${
-                          isActive ? 'text-[#0b0b1f]' : 'text-neutral-500'
-                        }`}
-                        style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.05rem,1.35vw,1.7rem)', fontWeight: 500 }}
+                        className={`text-2xl leading-[1.4] italic ${isActive ? 'text-foreground' : 'text-muted-foreground'
+                          }`}
+                        style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.05rem,1.35vw,1.4rem)', fontWeight: 500 }}
                       >
-                        {item.quote}
+                        "{item.quote}"
                       </blockquote>
 
                       <div className="mt-auto flex items-end justify-between pt-8">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <img
-                            src={item.avatar}
-                            alt={item.name}
-                            className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                          />
+                        <div className="flex items-center gap-4 min-w-0">
+                          <div className={`p-0.5 rounded-sm ${isActive ? 'bg-gradient-to-tr from-primary to-secondary shadow-brand-cyan-glow' : 'bg-muted'}`}>
+                            <img
+                              src={item.avatar}
+                              alt={item.name}
+                              className="w-12 h-12 rounded-sm object-cover border-2 border-background"
+                            />
+                          </div>
                           <p
-                            className={`text-sm md:text-[1.02rem] leading-tight ${
-                              isActive ? 'text-[#0b0b1f]' : 'text-neutral-500'
-                            }`}
+                            className={`text-sm md:text-[1.02rem] leading-tight flex flex-col ${isActive ? 'text-foreground' : 'text-muted-foreground'
+                              }`}
                             style={{ fontFamily: '"Manrope", sans-serif' }}
                           >
-                            <span className="font-semibold">{item.name}</span>
-                            <span className="mx-2 opacity-70">-</span>
-                            <span>{item.role}</span>
+                            <span className="font-bold tracking-wider uppercase">{item.name}</span>
+                            <span className={`text-xs mt-1 uppercase tracking-widest ${isActive ? 'text-primary' : 'text-muted-foreground/60'}`}>{item.role}</span>
                           </p>
                         </div>
 
-                        <div className={`flex items-center gap-0.5 pl-3 shrink-0 ${isActive ? 'text-[#ff5a1f]' : 'text-[#edc0ad]'}`}>
+                        <div className={`flex items-center gap-1 pl-3 shrink-0 ${isActive ? 'text-primary drop-shadow-[0_0_5px_rgba(37,99,235,0.5)]' : 'text-muted-foreground/40'}`}>
                           {Array.from({ length: 5 }).map((_, starIdx) => (
                             <Star key={starIdx} className="w-4 h-4 fill-current" />
                           ))}
@@ -144,22 +146,27 @@ export default function Testimonials() {
             })}
           </div>
 
-          <div className="mt-10 flex items-center justify-center gap-5">
+          <div className="mt-14 flex items-center justify-center gap-6 relative z-10">
             <button
               data-testid="testimonial-prev"
               onClick={prev}
-              className="w-10 h-10 rounded-full border border-[#d7d7d2] bg-[#f6f6f4] text-neutral-500 hover:text-neutral-800 hover:border-[#c9c9c3] transition-colors flex items-center justify-center"
+              className="w-12 h-12 rounded-sm border border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-brand-cyan-glow transition-all flex items-center justify-center group active:scale-95"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
             </button>
+            <div className="flex gap-2">
+              {testimonials.map((_, idx) => (
+                <div key={idx} className={`w-2 h-2 rounded-sm transform rotate-45 transition-all ${idx === current ? 'bg-primary shadow-brand-cyan-glow scale-125' : 'bg-border'}`} />
+              ))}
+            </div>
             <button
               data-testid="testimonial-next"
               onClick={next}
-              className="w-10 h-10 rounded-full border border-[#d7d7d2] bg-[#f6f6f4] text-neutral-500 hover:text-neutral-800 hover:border-[#c9c9c3] transition-colors flex items-center justify-center"
+              className="w-12 h-12 rounded-sm border border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-brand-cyan-glow transition-all flex items-center justify-center group active:scale-95"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>

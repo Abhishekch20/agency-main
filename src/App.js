@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Mission from "@/components/Mission";
@@ -35,27 +34,6 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.05,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      smoothWheel: true,
-      smoothTouch: false,
-    });
-
-    let rafId;
-    const raf = (time) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-
-    rafId = requestAnimationFrame(raf);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
 
   useEffect(() => {
     const elements = document.querySelectorAll("section > div, footer > div");

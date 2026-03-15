@@ -75,27 +75,27 @@ function ServiceCard({ service, index }) {
   return (
     <motion.article
       data-testid={`service-card-${index + 1}`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: 20 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.45, delay: index * 0.08 }}
-      className="rounded-[14px] border border-[#d6d6d0] bg-[#eeeeec] p-4 md:p-6"
+      className="group rounded-sm border border-border bg-card/50 backdrop-blur-md hover:bg-muted/30 transition-colors p-4 md:p-6"
     >
       <div className="flex items-start justify-between gap-4">
         <h3
-          className="text-[1.35rem] md:text-[2.65rem] leading-[1.15] text-[#080a1f] font-semibold"
+          className="text-[1.35rem] md:text-[2.2rem] leading-[1.15] text-foreground font-bold tracking-wide uppercase group-hover:text-primary transition-colors"
           style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.2rem,1.85vw,2rem)' }}
         >
           {service.title}
         </h3>
-        <span className="shrink-0 h-11 w-11 rounded-xl border border-[#ccccc6] bg-[#e8e8e6] flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
-          <Icon className="h-5 w-5 text-[#1f243f]" strokeWidth={1.9} />
+        <span className="shrink-0 h-11 w-11 rounded-sm border border-primary/30 bg-primary/10 flex items-center justify-center shadow-brand-cyan-glow">
+          <Icon className="h-5 w-5 text-primary" strokeWidth={2} />
         </span>
       </div>
 
-      <div className="mt-5 md:mt-6 border-t border-dashed border-[#d2d2cc] pt-5 md:pt-6">
+      <div className="mt-5 md:mt-6 border-t border-dashed border-border pt-5 md:pt-6">
         <p
-          className="text-[#4f556b] leading-[1.42] max-w-2xl"
+          className="text-muted-foreground leading-[1.42] max-w-2xl font-medium"
           style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1rem,1.08vw,1.12rem)' }}
         >
           {service.description}
@@ -105,7 +105,7 @@ function ServiceCard({ service, index }) {
           {service.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-[#d0d0cb] bg-[#e9e9e7] px-4 py-1.5 text-[11px] md:text-[12px] font-semibold uppercase tracking-[0.16em] text-[#566178]"
+              className="rounded-sm border border-primary/20 bg-primary/5 px-4 py-1.5 text-[11px] md:text-[12px] font-bold uppercase tracking-[0.16em] text-primary shadow-sm"
               style={{ fontFamily: '"Manrope", sans-serif' }}
             >
               {tag}
@@ -122,48 +122,51 @@ export default function ServicesTimeline() {
     <section
       id="services"
       data-testid="services-timeline-section"
-      className="bg-[#efefed] py-20 md:py-28"
+      className="bg-background py-20 md:py-28 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-12">
+      <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-7 md:gap-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5 }}
             className="lg:sticky lg:top-28 h-fit"
           >
-            <p className="text-[#7b7b83] uppercase tracking-[0.2em] text-xs md:text-sm font-semibold mb-5 flex items-center gap-2">
-              <span className="text-[#b6b6bc]">&#8250;</span>
-              What we do
-              <span className="text-[#b6b6bc]">&#8249;</span>
+            <p className="text-primary uppercase tracking-[0.2em] text-xs md:text-sm font-bold mb-5 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)]">
+              <span className="text-primary/50">&#8250;</span>
+              CORE MODULES
+              <span className="text-primary/50">&#8249;</span>
             </p>
 
             <h2
-              className="text-[#080a1f] leading-[1.02] font-semibold max-w-[14ch]"
-              style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(2rem,4.4vw,4rem)' }}
+              className="text-foreground leading-[1.02] font-black max-w-[14ch] uppercase tracking-wider"
+              style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(2rem,4.4vw,4rem)', textShadow: '0 0 20px rgba(var(--foreground),0.1)' }}
             >
-              Services built
+              Systems built
               <br />
-              to drive impact
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">to drive impact</span>
             </h2>
 
-            <div className="mt-7 md:mt-8">
+            <div className="mt-7 md:mt-10">
               <a
                 href="#contact"
                 data-testid="services-cta"
-                className="inline-flex items-center justify-center rounded-full border border-[#EA580C] bg-[#F97316] text-white px-5 py-2.5 md:px-6 md:py-2.5 text-[1.6rem] font-semibold shadow-[0_8px_16px_-12px_rgba(0,0,0,0.35)] hover:bg-[#EA580C] transition-colors"
-                style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.05rem,1.25vw,1.9rem)' }}
+                className="group relative inline-flex items-center gap-3 px-8 py-3.5 text-[14px] font-bold text-primary-foreground bg-primary uppercase tracking-widest overflow-hidden transition-all hover:scale-105"
+                style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%)' }}
               >
-                Discuss your ideas
+                <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <span className="relative">INITIATE REQUEST</span>
               </a>
-              <p className="mt-3 ml-6 text-[#D67856] text-2xl" style={{ fontFamily: '"Caveat", cursive' }}>
-                Let&apos;s get started
+              <p className="mt-4 ml-2 text-secondary font-medium text-lg tracking-widest uppercase text-sm shadow-brand-purple-glow">
+                AWAITING INPUT
               </p>
             </div>
           </motion.div>
 
-          <div className="rounded-[20px] border border-[#d2d2cc] bg-[#dfdfdc] p-2.5 md:p-4">
+          <div className="glass-card p-2.5 md:p-4">
             <div className="space-y-2.5 md:space-y-4">
               {services.map((service, index) => (
                 <ServiceCard key={service.title} service={service} index={index} />

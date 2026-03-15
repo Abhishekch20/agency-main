@@ -23,72 +23,77 @@ const stats = [
 
 export default function ImpactStats() {
   return (
-    <section data-testid="impact-section" className="py-24 md:py-28 bg-[#efefed]">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
+    <section data-testid="impact-section" className="py-24 md:py-28 bg-transparent relative overflow-hidden">
+      {/* Dynamic Background Elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.03),transparent_50%)] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-secondary/20 to-transparent pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: -14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.45 }}
-          className="mb-10 md:mb-12"
+          className="mb-10 md:mb-12 flex flex-col items-center md:items-start text-center md:text-left"
         >
           <p
-            className="text-xs md:text-sm uppercase tracking-[0.18em] text-neutral-500 font-semibold mb-4"
+            className="text-xs md:text-sm uppercase tracking-[0.25em] text-primary font-bold mb-4 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)]"
             style={{ fontFamily: '"Manrope", sans-serif' }}
           >
-            STATS
+            TELEMETRY DATA
           </p>
           <h2
-            className="text-[2.4rem] md:text-[4.25rem] leading-[0.95] tracking-[-0.03em] text-[#0b0b1f] font-extrabold"
-            style={{ fontFamily: '"Manrope", sans-serif' }}
+            className="text-[2.4rem] md:text-[4.25rem] leading-[0.95] tracking-widest text-foreground font-black uppercase"
+            style={{ fontFamily: '"Manrope", sans-serif', textShadow: '0 0 20px rgba(var(--foreground),0.1)' }}
           >
-            Impact in numbers
+            SYSTEM IMPACT
           </h2>
         </motion.div>
 
-        <div className="rounded-[18px] border border-[#d4d4cf] bg-[#e8e8e6] p-4 md:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
+        <div className="rounded-sm border border-border bg-card/50 backdrop-blur-xl p-4 md:p-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(0,0,0,0.6)]">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {stats.map((item, index) => (
               <motion.article
                 key={item.title}
                 data-testid={`stat-${item.title.toLowerCase().replace(/\s/g, '-')}`}
-                initial={{ opacity: 0, y: 14 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="rounded-xl border border-[#dbdbd6] bg-[#efefed] px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col"
+                className="group rounded-sm border border-border bg-muted/20 hover:bg-muted/30 transition-colors backdrop-blur-md px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col relative overflow-hidden"
               >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-brand-cyan-glow" />
+
                 <h3
-                  className="text-[2rem] leading-[1.08] text-[#0b0b1f] font-semibold mb-4"
-                  style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2.1rem)' }}
+                  className="text-[1.8rem] leading-[1.08] text-foreground font-bold mb-4 uppercase tracking-wider group-hover:text-primary transition-colors"
+                  style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2rem)' }}
                 >
                   {item.title}
                 </h3>
                 <p
-                  className="text-neutral-600 leading-[1.35] max-w-[95%]"
-                  style={{ fontFamily: '"Manrope", sans-serif', fontWeight: 600, fontSize: 'clamp(1rem,1.04vw,1.9rem)' }}
+                  className="text-muted-foreground leading-[1.4] max-w-[95%] font-medium"
+                  style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(0.95rem,1vw,1.1rem)' }}
                 >
                   {item.description}
                 </p>
 
-                <div className="mt-auto pt-10">
-                  <div className="h-px w-full bg-[#d7d7d2] mb-6" />
+                <div className="mt-auto pt-10 relative z-10">
+                  <div className="h-px w-full bg-border mb-6" />
                   <div className="flex items-end justify-between">
                     <span
-                      className="text-[#0b0b1f] font-semibold tracking-[-0.03em] leading-none"
-                      style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(2.2rem,3.4vw,4.3rem)' }}
+                      className="font-black tracking-widest leading-none text-transparent bg-clip-text bg-gradient-to-r from-foreground to-muted-foreground/50 group-hover:from-primary group-hover:to-secondary transition-all duration-300 drop-shadow-[0_0_15px_rgba(37,99,235,0.2)]"
+                      style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(3rem,4vw,5rem)' }}
                     >
                       {item.value}
                     </span>
-                    <div className="flex items-center gap-2 pb-2">
+                    <div className="flex items-center gap-3 pb-3">
                       {[0, 1, 2].map((dot) => (
                         <span
                           key={dot}
-                          className={`w-2.5 h-2.5 rounded-full ${
-                            dot === item.activeDot
-                              ? 'bg-[#F97316] shadow-[0_0_0_2px_rgba(249,115,22,0.18)]'
-                              : 'bg-[#d2d2cd] border border-[#c6c6c2]'
-                          }`}
+                          className={`w-2 h-2 rounded-sm transform rotate-45 transition-all duration-500 ${dot === item.activeDot
+                            ? 'bg-primary shadow-brand-cyan-glow scale-125'
+                            : 'bg-muted-foreground/20 border border-muted-foreground/30 group-hover:bg-muted-foreground/40'
+                            }`}
                         />
                       ))}
                     </div>

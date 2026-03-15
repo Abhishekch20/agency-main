@@ -55,13 +55,24 @@ module.exports = {
           "5": "hsl(var(--chart-5))",
         },
         syntrix: {
-          primary: "#635BFF",
-          dark: "#0A2540",
-          purple: "#635BFF",
-          pink: "#EC4899",
-          orange: "#F97316",
-          yellow: "#EAB308",
+          cyan: "#00f0ff",
+          purple: "#8a2be2",
+          pink: "#ff007f",
+          dark: "#050510",
         },
+      },
+      boxShadow: {
+        'glow-cyan': '0 0 15px rgba(0, 240, 255, 0.5)',
+        'glow-purple': '0 0 15px rgba(138, 43, 226, 0.5)',
+        'glow-pink': '0 0 15px rgba(255, 0, 127, 0.5)',
+      },
+      backgroundImage: {
+        'cyber-grid': `linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                       linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
+        'synthwave-gradient': 'linear-gradient(135deg, rgba(138,43,226,0.2) 0%, rgba(0,240,255,0.2) 100%)',
+      },
+      backgroundSize: {
+        'cyber-grid': '40px 40px',
       },
       keyframes: {
         "accordion-down": {
@@ -84,6 +95,14 @@ module.exports = {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "1", filter: "brightness(100%) drop-shadow(0 0 10px rgba(0,240,255,0.7))" },
+          "50%": { opacity: "0.8", filter: "brightness(130%) drop-shadow(0 0 20px rgba(0,240,255,1))" },
+        },
+        "scanline": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100vh)" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -91,6 +110,8 @@ module.exports = {
         "fade-up": "fade-up 0.7s ease-out forwards",
         "fade-in": "fade-in 0.5s ease-out forwards",
         "count-up": "count-up 0.8s ease-out forwards",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "scanline": "scanline 8s linear infinite"
       },
     },
   },
