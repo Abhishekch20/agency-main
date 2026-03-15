@@ -1,11 +1,5 @@
 {
-  "installCommand": "cd frontend && npm install --legacy-peer-deps",
-  "buildCommand": "cd frontend && npm run build",
-  "outputDirectory": "frontend/build",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "installCommand": "cd frontend-next && npm install --legacy-peer-deps",
+  "buildCommand": "cd frontend-next && npm run build",
+  "outputDirectory": "frontend-next/.next"
 }

@@ -1,4 +1,3 @@
-import "@/App.css";
 import { useEffect } from "react";
 import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
@@ -15,6 +14,27 @@ import Footer from "@/components/Footer";
 import ScrollToTopProgress from "@/components/ScrollToTopProgress";
 
 function App() {
+  useEffect(() => {
+    const removeEmergentBadge = () => {
+      const byId = document.getElementById("emergent-badge");
+      if (byId) byId.remove();
+
+      const links = document.querySelectorAll(
+        'a[href*="emergent.sh"], a[href*="utm_source=emergent-badge"]'
+      );
+      links.forEach((el) => {
+        if (el?.textContent?.toLowerCase().includes("made with emergent")) {
+          el.remove();
+        }
+      });
+    };
+
+    removeEmergentBadge();
+    const observer = new MutationObserver(removeEmergentBadge);
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.05,

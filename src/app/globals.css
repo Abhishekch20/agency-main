@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -119,3 +119,55 @@ html {
     border-bottom-color: inherit;
   }
 }
+
+/* Syntrix Technologies - Global Styles */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+*:focus-visible {
+  outline: 2px solid #635bff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.fade-up-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(0.992);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+  transition-delay: var(--fade-delay, 0ms);
+}
+
+.fade-up-on-scroll.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.fade-up-delay-0 {
+  --fade-delay: 0ms;
+}
+
+.fade-up-delay-1 {
+  --fade-delay: 80ms;
+}
+
+.fade-up-delay-2 {
+  --fade-delay: 150ms;
+}
+
