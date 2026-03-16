@@ -1,72 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  background-attachment: fixed;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-html {
-  scroll-behavior: auto;
-  font-size: 15px;
-}
-
-::selection {
-  background: rgba(99, 91, 255, 0.2);
-  color: #0f172a;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 217 91% 60%;
-    /* Electric Blue */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 226 70% 50%;
-    /* Royal Blue */
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 243 75% 59%;
-    /* Indigo Blue */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 188 100% 40%;
-    --radius: 0.5rem;
-
-    /* Blue Mix Glows */
-    --brand-cyan-glow: 0 0 10px rgba(59, 130, 246, 0.3), 0 0 20px rgba(37, 99, 235, 0.2);
-    --brand-purple-glow: 0 0 10px rgba(79, 70, 229, 0.3), 0 0 20px rgba(67, 56, 202, 0.2);
-  }
-
-  .dark {
     --background: 240 10% 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 6%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 6%;
     --popover-foreground: 0 0% 98%;
-    --primary: 217 91% 60%;
+    --primary: 217 91% 50%;
     --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 226 70% 50%;
+    --secondary: 226 70% 55%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 10% 12%;
     --muted-foreground: 240 5% 65%;
@@ -77,110 +23,99 @@ html {
     --border: 240 10% 15%;
     --input: 240 10% 15%;
     --ring: 188 100% 50%;
-
-    /* Dark Mode Blue Mix Glows */
-    --brand-cyan-glow: 0 0 10px rgba(59, 130, 246, 0.6), 0 0 25px rgba(37, 99, 235, 0.4);
-    --brand-purple-glow: 0 0 15px rgba(79, 70, 229, 0.6), 0 0 30px rgba(67, 56, 202, 0.4);
+    --radius: 0.5rem;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-white;
+    margin: 0;
+    font-family: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
   }
+}
 
+@layer components {
   .glass-card {
     @apply bg-background/60 backdrop-blur-xl border border-border/50 shadow-sm transition-all duration-300;
   }
 
-  .glass-panel {
-    @apply bg-background/40 backdrop-blur-2xl border-x border-border/30;
+  /* Performance: content-visibility for off-screen elements helps mobile LCP */
+  #services,
+  #projects,
+  #testimonials,
+  #contact,
+  #process {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
   }
 }
 
-@layer base {
-  [data-debug-wrapper="true"] {
-    display: contents !important;
-  }
-
-  [data-debug-wrapper="true"]>* {
-    margin-left: inherit;
-    margin-right: inherit;
-    margin-top: inherit;
-    margin-bottom: inherit;
-    padding-left: inherit;
-    padding-right: inherit;
-    padding-top: inherit;
-    padding-bottom: inherit;
-    column-gap: inherit;
-    row-gap: inherit;
-    gap: inherit;
-    border-left-width: inherit;
-    border-right-width: inherit;
-    border-top-width: inherit;
-    border-bottom-width: inherit;
-    border-left-style: inherit;
-    border-right-style: inherit;
-    border-top-style: inherit;
-    border-bottom-style: inherit;
-    border-left-color: inherit;
-    border-right-color: inherit;
-    border-top-color: inherit;
-    border-bottom-color: inherit;
-  }
+.bg-cyber-grid {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M24 0L0 0 0 24' fill='none' stroke='white' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
 }
 
-/* Syntrix Technologies - Global Styles */
+.bg-cyber-grid-light {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M24 0L0 0 0 24' fill='none' stroke='black' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/svg%3E");
+}
 
+/* Hide unwanted badges/watermarks early via CSS */
+#emergent-badge,
+a[href*="emergent.sh"],
+a[href*="utm_source=emergent-badge"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: rgba(155, 155, 155, 0.2);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(255, 255, 255, 0.2);
 }
 
-*:focus-visible {
-  outline: 2px solid #635bff;
-  outline-offset: 2px;
-  border-radius: 4px;
+/* Animations */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
-.fade-up-on-scroll {
-  opacity: 0;
-  transform: translate3d(0, 34px, 0) scale(0.992);
-  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-  transition-delay: var(--fade-delay, 0ms);
+.animate-shine {
+  animation: shine 2s infinite;
 }
 
-.fade-up-on-scroll.is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+/* Shadow utilities */
+.shadow-brand-cyan-glow {
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3), 0 0 30px rgba(37, 99, 235, 0.1);
 }
 
-.fade-up-delay-0 {
-  --fade-delay: 0ms;
+.shadow-brand-purple-glow {
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3), 0 0 30px rgba(79, 70, 229, 0.1);
 }
 
-.fade-up-delay-1 {
-  --fade-delay: 80ms;
-}
-
-.fade-up-delay-2 {
-  --fade-delay: 150ms;
+/* Mobile LCP Optimization: Ensure Hero elements paint immediately */
+img,
+svg {
+  shape-rendering: auto;
 }

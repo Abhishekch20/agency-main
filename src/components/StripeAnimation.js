@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 const leftItems = [
   'Slow, unclear timelines',
   'Extra charges for changes',
@@ -18,59 +16,54 @@ const rightItems = [
 
 export default function StripeAnimation() {
   return (
-    <section className="py-8 md:py-10 bg-transparent relative overflow-hidden">
-      <div className="absolute inset-0 bg-cyber-grid bg-[length:40px_40px] opacity-[0.03] pointer-events-none mix-blend-screen" />
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-120px' }}
-          transition={{ duration: 0.55 }}
-          className="glass-card p-5 md:p-7 relative z-10"
+    <section data-theme="light" className="py-12 md:py-16 bg-slate-50 relative overflow-hidden transition-colors duration-500">
+      <div className="absolute inset-0 bg-cyber-grid-light pointer-events-none" />
+      <div className="max-w-5xl mx-auto px-5 md:px-8">
+        <div
+          className="bg-white border border-slate-200 rounded-xl p-4 md:p-7 relative z-10 shadow-lg shadow-slate-200/50"
         >
-          <div className="max-w-3xl">
-            <h3 className="text-[1.5rem] md:text-[2.35rem] leading-[1.12] font-semibold text-foreground">
+          <div className="max-w-2xl">
+            <h3 className="text-[1.1rem] md:text-[1.55rem] leading-[1.12] font-semibold text-slate-900">
               We know choosing the right agency is hard because few{' '}
               <span className="text-primary">truly deliver</span>.
             </h3>
 
-            <p className="mt-4 text-[1.5rem] md:text-[2.35rem] leading-[1.12] font-semibold text-foreground">
+            <p className="mt-3 text-[1.1rem] md:text-[1.55rem] leading-[1.12] font-semibold text-slate-900">
               So we made it simple <span className="text-primary">to compare</span>{' '}
               how we work{' '}
-              <span className="inline-flex w-8 h-5 rounded-full bg-primary align-middle mx-1.5 shadow-brand-cyan-glow">
-                <span className="w-4 h-4 bg-primary-foreground rounded-full my-auto ml-0.5" />
+              <span className="inline-flex w-6 h-3.5 rounded-full bg-primary align-middle mx-1">
+                <span className="w-2.5 h-2.5 bg-white rounded-full my-auto ml-0.5" />
               </span>
               versus what you usually get <span className="text-primary">in the market.</span>
             </p>
           </div>
 
-          <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden border border-border">
-            <div className="bg-muted/10">
-              <div className="px-5 md:px-6 py-4 border-b border-border">
-                <p className="text-[1.7rem] md:text-[2rem] font-medium text-foreground opacity-60">Other agencies</p>
+          <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden border border-slate-200 shadow-md">
+            <div className="bg-slate-50">
+              <div className="px-5 md:px-6 py-3.5 border-b border-slate-200">
+                <p className="text-[0.85rem] md:text-[1.05rem] font-bold text-slate-600 uppercase tracking-widest">Other agencies</p>
               </div>
               {leftItems.map((item) => (
-                <div key={item} className="px-5 md:px-6 py-4 border-b border-border last:border-b-0 flex items-center gap-3">
-                  <span className="text-muted-foreground/40 text-lg font-bold">{'>'}</span>
-                  <span className="text-muted-foreground text-[1.28rem] md:text-[1.55rem] font-medium opacity-50">{item}</span>
+                <div key={item} className="px-5 md:px-6 py-3 border-b border-slate-100 last:border-b-0 flex items-center gap-3">
+                  <span className="text-red-500 text-base font-bold">×</span>
+                  <span className="text-slate-600 text-[0.8rem] md:text-[0.95rem] font-medium">{item}</span>
                 </div>
               ))}
             </div>
 
-            <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-secondary">
-
-              <div className="relative px-5 md:px-6 py-4 border-b border-primary-foreground/10 bg-white/5">
-                <p className="text-[1.7rem] md:text-[2rem] font-black text-primary-foreground tracking-tight uppercase">Syntrix agency</p>
+            <div className="relative overflow-hidden bg-primary">
+              <div className="relative px-5 md:px-6 py-3.5 border-b border-white/20 bg-white/10">
+                <p className="text-[0.85rem] md:text-[1.05rem] font-black text-white tracking-widest uppercase">Syntrix agency</p>
               </div>
               {rightItems.map((item) => (
-                <div key={item} className="relative px-5 md:px-6 py-4 flex items-center gap-3 border-b border-primary-foreground/5 last:border-b-0 group">
-                  <span className="text-primary-foreground text-lg font-bold group-hover:translate-x-1 transition-transform">{'>'}</span>
-                  <span className="text-primary-foreground font-bold text-[1.28rem] md:text-[1.55rem] tracking-tight">{item}</span>
+                <div key={item} className="relative px-5 md:px-6 py-3 flex items-center gap-3 border-b border-white/5 last:border-b-0 group">
+                  <span className="text-white text-base font-bold group-hover:translate-x-1 transition-transform">✓</span>
+                  <span className="text-white font-bold text-[0.8rem] md:text-[0.95rem] tracking-tight">{item}</span>
                 </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

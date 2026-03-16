@@ -1,57 +1,20 @@
 import React, { useRef } from "react";
 import { cn } from "@/lib/utils";
-import {
-  motion,
-  useMotionValue,
-  useMotionTemplate,
-  useAnimationFrame,
-} from "framer-motion";
 
 export const Component = ({ className = "" }) => {
   const containerRef = useRef(null);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
-    const { left, top } = e.currentTarget.getBoundingClientRect();
-    mouseX.set(e.clientX - left);
-    mouseY.set(e.clientY - top);
-  };
-
-  const gridOffsetX = useMotionValue(0);
-  const gridOffsetY = useMotionValue(0);
-
-  const speedX = 0.5;
-  const speedY = 0.5;
-
-  useAnimationFrame(() => {
-    const currentX = gridOffsetX.get();
-    const currentY = gridOffsetY.get();
-    gridOffsetX.set((currentX + speedX) % 40);
-    gridOffsetY.set((currentY + speedY) % 40);
-  });
-
-  const maskImage = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
-
   return (
     <div
       ref={containerRef}
-      onMouseMove={handleMouseMove}
       className={cn(
         "relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-background",
         className
       )}
     >
       <div className="absolute inset-0 z-0 opacity-[0.05]">
-        <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
+        <GridPattern offsetX={0} offsetY={0} />
       </div>
-      <motion.div
-        className="absolute inset-0 z-0 opacity-40"
-        style={{ maskImage, WebkitMaskImage: maskImage }}
-      >
-        <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
-      </motion.div>
 
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute right-[-20%] top-[-20%] w-[40%] h-[40%] rounded-full bg-[#F97316]/40 dark:bg-[#F97316]/20 blur-[120px]" />
@@ -85,14 +48,14 @@ export const Component = ({ className = "" }) => {
         <div className="mt-8 flex flex-wrap gap-4 pointer-events-auto">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3 text-[16px] font-semibold text-white bg-[#F97316] rounded-full shadow-[0_10px_24px_-12px_rgba(249,115,22,0.75)] hover:bg-[#EA580C] hover:-translate-y-0.5 transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3 text-[16px] font-semibold text-white bg-[#F97316] rounded-full shadow-[0_10px_24px_-12px_rgba(249,115,22,0.75)] hover:bg-[#EA580C] transition-all"
             style={{ fontFamily: '"Manrope", sans-serif' }}
           >
             Discuss your ideas
           </a>
           <a
             href="#services"
-            className="inline-flex items-center gap-2 px-7 py-3 text-[16px] font-semibold text-white bg-[#0b0b1f] border border-[#0b0b1f] rounded-full shadow-[0_10px_24px_-12px_rgba(11,11,31,0.65)] hover:bg-[#16163a] hover:-translate-y-0.5 transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3 text-[16px] font-semibold text-white bg-[#0b0b1f] border border-[#0b0b1f] rounded-full shadow-[0_10px_24px_-12px_rgba(11,11,31,0.65)] hover:bg-[#16163a] transition-all"
             style={{ fontFamily: '"Manrope", sans-serif' }}
           >
             View services
@@ -114,7 +77,7 @@ const GridPattern = ({ offsetX, offsetY }) => {
   return (
     <svg className="w-full h-full">
       <defs>
-        <motion.pattern
+        <pattern
           id="grid-pattern"
           width="40"
           height="40"
@@ -129,7 +92,7 @@ const GridPattern = ({ offsetX, offsetY }) => {
             strokeWidth="1"
             className="text-muted-foreground"
           />
-        </motion.pattern>
+        </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#grid-pattern)" />
     </svg>

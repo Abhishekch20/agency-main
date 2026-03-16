@@ -1,7 +1,7 @@
-import { useState } from 'react';
+"use client";
+
+import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion } from 'framer-motion';
-import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { label: 'Home', href: '#' },
@@ -14,142 +14,165 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const primaryLinks = navLinks.filter((link) => link.label !== 'Contact');
-  const contactLink = navLinks.find((link) => link.label === 'Contact');
-  const gradientAccent = 'linear-gradient(135deg,#2563eb,#4f46e5)';
+  const [scrolled, setScrolled] = useState(false);
+  const [isLightSection, setIsLightSection] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Memoized scroll logic (only for toggle shadow)
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 20);
+  }, []);
+
+  useEffect(() => {
+    // 1. Scroll Shadow Listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // 2. Intersection Observer for Scroll Spy & Theme Detection
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -85% 0px', // Target the top area of the viewport
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          const index = navLinks.findIndex(link => link.href === `#${id || ''}`);
+
+          // Update active link
+          if (index !== -1) setActiveIndex(index);
+          else if (!id) setActiveIndex(0);
+
+          // Update theme based on section attributes
+          const isLight =
+            entry.target.classList.contains('bg-white') ||
+            entry.target.classList.contains('bg-slate-50') ||
+            entry.target.getAttribute('data-theme') === 'light';
+
+          setIsLightSection(isLight);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe sections and footer
+    const targets = document.querySelectorAll('section, footer');
+    targets.forEach(t => observer.observe(t));
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, [handleScroll]);
+
+  const primaryLinks = navLinks.filter(l => l.label !== 'Contact');
+  const contactLink = navLinks.find(l => l.label === 'Contact');
+  const accentGradient = 'linear-gradient(135deg, #2563eb, #4f46e5)';
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 px-3 md:px-5 pt-3 md:pt-4">
-      <div className="max-w-7xl mx-auto w-full relative">
-        {/* Realistic Falling Drop */}
-        <motion.div
-          className="absolute left-1/2 -ml-2 top-0 w-4 h-6 bg-primary rounded-full shadow-brand-cyan-glow z-30 pointer-events-none"
-          initial={{ y: -300, scaleX: 0.8, scaleY: 1.2, opacity: 0 }}
-          animate={{
-            y: [-300, 32, 32],
-            scaleX: [0.8, 1, 1.8, 0],
-            scaleY: [1.2, 1, 0.4, 0],
-            opacity: [0, 1, 1, 0]
-          }}
-          transition={{
-            duration: 0.8,
-            times: [0, 0.6, 0.8, 1],
-            ease: "easeIn"
-          }}
-        />
-
-        <motion.nav
-          initial={{ clipPath: 'circle(0px at 50% 50%)', opacity: 0 }}
-          animate={{ clipPath: 'circle(1500px at 50% 50%)', opacity: 1 }}
-          transition={{
-            delay: 0.6,
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1]
-          }}
+    <div className="fixed top-0 left-0 right-0 z-[100] px-3 md:px-5 pt-3 pointer-events-none">
+      <div className="max-w-6xl mx-auto w-full relative pointer-events-auto">
+        <nav
           data-testid="navbar"
-          className="rounded-[2rem] bg-background/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.2)] border border-border/20 w-full"
+          aria-label="Main Navigation"
+          className={`w-full transition-all duration-500 border overflow-hidden ${isLightSection
+            ? 'bg-white/80 backdrop-blur-2xl border-slate-200'
+            : 'bg-slate-950/40 backdrop-blur-2xl border-white/10'
+            } ${scrolled ? 'shadow-lg shadow-black/5' : 'shadow-none'
+            } ${mobileOpen ? 'rounded-xl' : 'rounded-[20px] md:rounded-[28px]'
+            }`}
+          style={{
+            animation: 'nav-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            opacity: 0,
+            transform: 'translateY(-10px)'
+          }}
         >
-          <div className="px-6 md:px-10">
-            <div className="relative flex items-center justify-between h-14 md:h-16">
-              <a href="/" data-testid="navbar-logo" className="shrink-0 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow shadow-brand-cyan-glow" />
-                <span className="text-xl md:text-2xl font-black text-foreground tracking-widest uppercase">
-                  Syntrix
-                </span>
+          <div className="px-5 md:px-7 h-10 md:h-12 flex items-center justify-between">
+            {/* Logo */}
+            <a href="/" className="flex items-center gap-2 group">
+              <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(37,99,235,0.6)] group-hover:scale-125 transition-transform duration-300" />
+              <span className={`text-base md:text-lg font-black uppercase tracking-tighter transition-colors duration-300 ${isLightSection ? 'text-slate-950' : 'text-white'
+                }`}>
+                Syntrix
+              </span>
+            </a>
+
+            {/* Desktop Links */}
+            <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+              {primaryLinks.map((link, idx) => {
+                const isActive = hoveredIndex === null ? activeIndex === idx : hoveredIndex === idx;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={`relative px-4 py-1.5 text-[11px] font-bold uppercase tracking-wide transition-all duration-300 ${isLightSection ? 'text-slate-600 hover:text-primary' : 'text-slate-400 hover:text-white'
+                      }`}
+                    onMouseEnter={() => setHoveredIndex(idx)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                  >
+                    <span className="relative z-10">{link.label}</span>
+                    <span className={`absolute bottom-0 left-4 right-4 h-[1.5px] rounded-full transition-transform duration-300 origin-left ${isActive ? 'scale-x-100' : 'scale-x-0'
+                      }`} style={{ background: accentGradient }} />
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* CTA & Mobile Toggle */}
+            <div className="flex items-center gap-3">
+              <a
+                href={contactLink?.href}
+                className={`hidden md:flex items-center gap-1.5 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full border transition-all duration-300 ${isLightSection
+                  ? 'border-slate-200 text-slate-950 hover:border-primary hover:bg-slate-50'
+                  : 'border-white/10 text-white hover:border-primary hover:shadow-[0_0_12px_rgba(37,99,235,0.3)]'
+                  }`}
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                {contactLink?.label}
               </a>
 
-              <div className="hidden md:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
-                {primaryLinks.map((link, index) => {
-                  const showUnderline = hoveredIndex === null ? link.label === 'Home' : hoveredIndex === index;
-                  return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      data-testid={`nav-link-${link.label.toLowerCase()}`}
-                      className="relative flex items-center gap-1.5 px-4 py-2 text-[15px] text-muted-foreground font-bold tracking-wide uppercase rounded-lg transition-all duration-300 hover:text-foreground hover:text-shadow-glow"
-                      onMouseEnter={() => setHoveredIndex(index)}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                    >
-                      <span className="relative z-[1]">{link.label}</span>
-                      <span
-                        className="absolute bottom-[7px] left-4 right-4 h-[2px] origin-left rounded-full transition-transform duration-300 ease-out"
-                        style={{
-                          transform: showUnderline ? 'scaleX(1)' : 'scaleX(0)',
-                          backgroundImage: gradientAccent,
-                          boxShadow: '0 0 10px rgba(37,99,235,0.7)',
-                        }}
-                      />
-                    </a>
-                  );
-                })}
-              </div>
-
-              <div className="hidden md:flex items-center gap-4">
-                <ThemeToggle />
-                <a
-                  href={contactLink?.href || '#contact'}
-                  data-testid="nav-link-contact"
-                  className="relative flex items-center gap-1.5 px-6 py-2 text-[14px] text-foreground dark:text-white hover:text-primary font-bold tracking-wider uppercase transition-colors rounded-full border border-border dark:border-primary/50 hover:border-primary hover:shadow-brand-cyan-glow bg-muted/50 dark:bg-background/50 backdrop-blur"
-                >
-                  <span
-                    className="transition-all duration-300 ease-out"
-                    style={{
-                      opacity: 1,
-                      transform: 'scale(1)',
-                      width: '6px',
-                      height: '6px',
-                      borderRadius: '50%',
-                      background: gradientAccent,
-                      display: 'inline-block',
-                      flexShrink: 0,
-                    }}
-                  />
-                  Contact
-                </a>
-              </div>
-
               <button
-                data-testid="mobile-menu-button"
-                className="md:hidden p-1.5 text-foreground hover:text-primary rounded-full border border-border transition-colors animate-fade-in"
                 onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
+                className={`md:hidden p-1.5 rounded-full border transition-colors ${isLightSection ? 'border-slate-200 text-slate-950' : 'border-white/10 text-white'
+                  }`}
               >
-                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileOpen ? <X size={16} /> : <Menu size={16} />}
               </button>
             </div>
           </div>
 
-          {mobileOpen && (
-            <motion.div
-              data-testid="mobile-menu"
-              className="md:hidden border-t border-border dark:border-white/10 px-6 pb-6 pt-4 bg-background/95 dark:bg-background/95 backdrop-blur-3xl rounded-b-[2rem] shadow-brand-cyan-glow"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-between pb-2 border-b border-border/50 dark:border-white/5">
-                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Theme Mode</span>
-                  <ThemeToggle />
-                </div>
-                <div className="flex flex-col gap-1">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      data-testid={`mobile-nav-${link.label.toLowerCase()}`}
-                      className="flex items-center gap-3 py-3 text-[15px] text-muted-foreground hover:text-foreground dark:hover:text-primary font-bold uppercase tracking-wider transition-colors"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-brand-cyan-glow" />
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </motion.nav>
+          {/* Mobile Menu */}
+          <div className={`md:hidden border-t transition-all duration-500 ease-in-out overflow-hidden ${mobileOpen ? 'max-h-[300px] opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
+            } ${isLightSection ? 'border-slate-100 bg-white/50' : 'border-white/5 bg-slate-950/20'}`}>
+            <div className="flex flex-col gap-0.5 px-6">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center gap-2 py-2 text-[11px] font-bold uppercase tracking-wider transition-colors ${isLightSection ? 'text-slate-600' : 'text-slate-400'
+                    } hover:text-primary`}
+                >
+                  <div className={`w-1 h-1 rounded-full bg-primary transition-transform ${activeIndex === navLinks.indexOf(link) ? 'scale-150' : 'scale-100 opacity-30'
+                    }`} />
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </nav>
       </div>
+
+      <style jsx global>{`
+        @keyframes nav-in {
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }

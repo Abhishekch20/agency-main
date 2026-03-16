@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -14,63 +16,33 @@ import ScrollToTopProgress from "@/components/ScrollToTopProgress";
 
 function App() {
   useEffect(() => {
-    const removeEmergentBadge = () => {
-      const byId = document.getElementById("emergent-badge");
-      if (byId) byId.remove();
-
-      const links = document.querySelectorAll(
-        'a[href*="emergent.sh"], a[href*="utm_source=emergent-badge"]'
-      );
-      links.forEach((el) => {
-        if (el?.textContent?.toLowerCase().includes("made with emergent")) {
-          el.remove();
-        }
-      });
-    };
-
-    removeEmergentBadge();
-    const observer = new MutationObserver(removeEmergentBadge);
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-    return () => observer.disconnect();
-  }, []);
-
-
-  useEffect(() => {
-    const elements = document.querySelectorAll("section > div, footer > div");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
-    );
-
-    elements.forEach((el) => {
-      el.classList.add("fade-up-on-scroll");
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    // One-time cleanup after hydration
+    const timer = setTimeout(() => {
+      const badge = document.getElementById("emergent-badge");
+      if (badge) badge.remove();
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="font-inter antialiased">
+    <div className="font-sans antialiased text-slate-200 bg-[#020617]">
+      <style jsx global>{`
+        #emergent-badge { display: none !important; pointer-events: none !important; visibility: hidden !important; }
+      `}</style>
       <Navbar />
-      <div className="relative overflow-hidden">
-        <Hero />
-      </div>
-      <Mission />
-      <CreativeProcess />
-      <StripeAnimation />
-      <ServicesTimeline />
-      <ImpactStats />
-      <LatestProjects />
-      <Testimonials />
-      <ContactForm />
+      <main>
+        <div className="relative overflow-hidden">
+          <Hero />
+        </div>
+        <Mission />
+        <CreativeProcess />
+        <StripeAnimation />
+        <ServicesTimeline />
+        <ImpactStats />
+        <LatestProjects />
+        <Testimonials />
+        <ContactForm />
+      </main>
       <Footer />
       <ScrollToTopProgress />
     </div>

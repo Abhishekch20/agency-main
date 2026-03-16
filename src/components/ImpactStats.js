@@ -1,107 +1,114 @@
-import { motion } from 'framer-motion';
+"use client";
+
+import { useEffect, useRef } from 'react';
+import { useInView, motion, animate, useMotionValue, useTransform } from 'framer-motion';
 
 const stats = [
   {
     title: 'Client Satisfaction',
     description: 'Recognized for reliable, scalable, and impactful digital work.',
-    value: '98%',
+    value: 98,
+    suffix: '%',
     activeDot: 0,
   },
   {
     title: 'Successful Projects',
     description: 'Driven by clarity, quality, and a strong execution process.',
-    value: '25+',
+    value: 25,
+    suffix: '+',
     activeDot: 1,
   },
   {
     title: 'Years of Experience',
     description: 'Built on years of refined skills and proven industry knowledge.',
-    value: '5+',
+    value: 5,
+    suffix: '+',
     activeDot: 2,
   },
 ];
 
+function RollingNumber({ value, suffix }) {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.4 });
+  const hasAnimatedRef = useRef(false);
+
+  useEffect(() => {
+    if (hasAnimatedRef.current) return;
+    if (!isInView && typeof IntersectionObserver !== 'undefined') return;
+
+    hasAnimatedRef.current = true;
+    if (value === 0) return;
+
+      const controls = animate(count, value, {
+        duration: 2,
+        ease: [0.16, 1, 0.3, 1], // easeOutQuart
+      });
+      return () => controls.stop();
+  }, [isInView, count, value]);
+
+  return (
+    <span ref={ref} className="inline-flex items-baseline whitespace-nowrap tabular-nums">
+      <motion.span className="whitespace-nowrap">{rounded}</motion.span>
+      <span className="whitespace-nowrap">{suffix}</span>
+    </span>
+  );
+}
+
 export default function ImpactStats() {
   return (
-    <section data-testid="impact-section" className="py-24 md:py-28 bg-transparent relative overflow-hidden">
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.03),transparent_50%)] pointer-events-none" />
-      <div className="absolute top-0 right-0 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-secondary/20 to-transparent pointer-events-none" />
+    <section data-testid="impact-section" data-theme="light" className="py-16 md:py-24 bg-white relative overflow-hidden transition-colors duration-500">
+      {/* Background Decor */}
+      <div className="absolute inset-0 bg-cyber-grid-light pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.45 }}
-          className="mb-10 md:mb-12 flex flex-col items-center md:items-start text-center md:text-left"
-        >
-          <p
-            className="text-xs md:text-sm uppercase tracking-[0.25em] text-primary font-bold mb-4 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)]"
-            style={{ fontFamily: '"Manrope", sans-serif' }}
-          >
+      <div className="max-w-6xl mx-auto px-6 md:px-10 relative z-10">
+        <div className="mb-10 md:mb-12 flex flex-col items-center md:items-start text-center md:text-left">
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-blue-800 font-bold mb-3">
             TELEMETRY DATA
           </p>
-          <h2
-            className="text-[2.4rem] md:text-[4.25rem] leading-[0.95] tracking-widest text-foreground font-black uppercase"
-            style={{ fontFamily: '"Manrope", sans-serif', textShadow: '0 0 20px rgba(var(--foreground),0.1)' }}
-          >
+          <h2 className="text-[1.8rem] md:text-[2.2rem] leading-[0.95] tracking-widest text-slate-900 font-black uppercase">
             SYSTEM IMPACT
           </h2>
-        </motion.div>
+        </div>
 
-        <div className="rounded-sm border border-border bg-card/50 backdrop-blur-xl p-4 md:p-6 shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(0,0,0,0.6)]">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {stats.map((item, index) => (
-              <motion.article
-                key={item.title}
-                data-testid={`stat-${item.title.toLowerCase().replace(/\s/g, '-')}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="group rounded-sm border border-border bg-muted/20 hover:bg-muted/30 transition-colors backdrop-blur-md px-6 md:px-7 pt-7 pb-5 min-h-[300px] md:min-h-[320px] flex flex-col relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-brand-cyan-glow" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {stats.map((item) => (
+            <article
+              key={item.title}
+              data-testid={`stat-${item.title.toLowerCase().replace(/\s/g, '-')}`}
+              className="group rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-lg hover:shadow-slate-200/40 transition-all duration-300 px-7 pt-8 pb-6 min-h-[220px] flex flex-col relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                <h3
-                  className="text-[1.8rem] leading-[1.08] text-foreground font-bold mb-4 uppercase tracking-wider group-hover:text-primary transition-colors"
-                  style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(1.4rem,1.45vw,2rem)' }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className="text-muted-foreground leading-[1.4] max-w-[95%] font-medium"
-                  style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(0.95rem,1vw,1.1rem)' }}
-                >
-                  {item.description}
-                </p>
+              <h3 className="text-[1.1rem] md:text-[1.25rem] leading-[1.1] text-slate-900 font-bold mb-4 uppercase tracking-wider group-hover:text-primary transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-slate-500 leading-relaxed font-medium text-[13px] md:text-[14px]">
+                {item.description}
+              </p>
 
-                <div className="mt-auto pt-10 relative z-10">
-                  <div className="h-px w-full bg-border mb-6" />
-                  <div className="flex items-end justify-between">
-                    <span
-                      className="font-black tracking-widest leading-none text-transparent bg-clip-text bg-gradient-to-r from-foreground to-muted-foreground/50 group-hover:from-primary group-hover:to-secondary transition-all duration-300 drop-shadow-[0_0_15px_rgba(37,99,235,0.2)]"
-                      style={{ fontFamily: '"Manrope", sans-serif', fontSize: 'clamp(3rem,4vw,5rem)' }}
-                    >
-                      {item.value}
-                    </span>
-                    <div className="flex items-center gap-3 pb-3">
-                      {[0, 1, 2].map((dot) => (
-                        <span
-                          key={dot}
-                          className={`w-2 h-2 rounded-sm transform rotate-45 transition-all duration-500 ${dot === item.activeDot
-                            ? 'bg-primary shadow-brand-cyan-glow scale-125'
-                            : 'bg-muted-foreground/20 border border-muted-foreground/30 group-hover:bg-muted-foreground/40'
-                            }`}
-                        />
-                      ))}
-                    </div>
+              <div className="mt-auto pt-6 relative z-10">
+                <div className="h-px w-full bg-slate-200 mb-6" />
+                <div className="flex items-end justify-between gap-4">
+                  <span className="font-black tracking-tighter leading-none text-slate-900 group-hover:text-primary transition-colors text-3xl md:text-4xl whitespace-nowrap tabular-nums">
+                    <RollingNumber value={item.value} suffix={item.suffix} />
+                  </span>
+                  <div className="flex shrink-0 items-center gap-2 pb-2">
+                    {[0, 1, 2].map((dot) => (
+                      <span
+                        key={dot}
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${dot === item.activeDot
+                          ? 'bg-primary scale-125'
+                          : 'bg-slate-200 group-hover:bg-slate-300'
+                          }`}
+                      />
+                    ))}
                   </div>
                 </div>
-              </motion.article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
